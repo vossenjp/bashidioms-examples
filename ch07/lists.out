@@ -1,0 +1,43 @@
+
+The element count is: 6 or 6
+
+The length of element [5] is: 10
+
+Dump or list:
+declare -a mylist=([0]="foo" [1]="bar" [2]="baz" [3]="one" [4]="two" [5]="three four")
+${mylist[@]}   = foo|bar|baz|one|two|three|four|
+${mylist[*]}   = foo|bar|baz|one|two|three|four|
+"${mylist[@]}" = foo|bar|baz|one|two|three\ four|
+"${mylist[*]}" = foo\ bar\ baz\ one\ two\ three\ four|	# But this is broken!
+
+foreach "${!mylist[@]}":
+	Element: 0; value: foo
+	Element: 1; value: bar
+	Element: 2; value: baz
+	Element: 3; value: one
+	Element: 4; value: two
+	Element: 5; value: three four
+
+But don't do this: ${mylist[*]}
+	Element: foo; value: foo
+	Element: bar; value: foo
+	Element: baz; value: foo
+	Element: one; value: foo
+	Element: two; value: foo
+	Element: three; value: foo
+	Element: four; value: foo
+
+Start from element 3 and show a slice of 2 elements:
+one|two|
+
+Shift FIRST element [0] (dumped before and after):
+declare -a mylist=([0]="foo" [1]="bar" [2]="baz" [3]="one" [4]="two" [5]="three four")
+declare -a mylist=([0]="bar" [1]="baz" [2]="one" [3]="two" [4]="three four")
+
+Pop LAST element (dumped before and after):
+declare -a mylist=([0]="bar" [1]="baz" [2]="one" [3]="two" [4]="three four")
+declare -a mylist=([0]="bar" [1]="baz" [2]="one" [3]="two")
+
+Delete element 2 using unset (dumped before and after):
+declare -a mylist=([0]="bar" [1]="baz" [2]="one" [3]="two")
+declare -a mylist=([0]="bar" [1]="baz" [3]="two")

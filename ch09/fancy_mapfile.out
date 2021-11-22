@@ -1,0 +1,18 @@
+
+Nodes to process:        10
+Batch size and count:    4 / 2
+Sleep seconds per node:  1
+Sleep seconds per batch: 1
+
+node 0: node0
+node 1: node1
+node 2: node2
+node 3: node3
+Completed 4 of 10 nodes; batch 1 of 2; sleeping for 1 seconds...
+node 4: node4
+node 5: node5
+node 6: node6
+node 7: node7
+Completed 8 of 10 nodes; batch 2 of 2; sleeping for 1 seconds...
+node 8: node8
+node 9: node9

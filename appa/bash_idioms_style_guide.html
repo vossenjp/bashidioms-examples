@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>bash Idioms Style Guide</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#bash-idioms-style-guide">Bash Idioms Style Guide</a><ul>
+<li><a href="#bash-idioms-style-guide-is-not-portable">Bash Idioms Style Guide is not portable</a></li>
+<li><a href="#readability">Readability</a></li>
+<li><a href="#comments">Comments</a></li>
+<li><a href="#names">Names</a></li>
+<li><a href="#functions">Functions</a></li>
+<li><a href="#quoting">Quoting</a></li>
+<li><a href="#layout">Layout</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#other">Other</a></li>
+<li><a href="#script-template">Script Template</a></li>
+</ul></li>
+</ul>
+</div>
+<h2 id="bash-idioms-style-guide">Bash Idioms Style Guide</h2>
+<p>This is a copy of the points in chapter 11 of <em>bash Idioms</em>, but without the commentary and examples. There's also a Markdown file in the examples directory so you can download and tweak it as desired, then render or include it as needed using <code>pandoc</code> or some other tool. Get the code from <a href="https://github.com/vossenjp/bashidioms-examples/tree/master/appa/" class="uri">https://github.com/vossenjp/bashidioms-examples/tree/master/appa/</a>.</p>
+<h3 id="bash-idioms-style-guide-is-not-portable">Bash Idioms Style Guide is not portable</h3>
+<p>This Bash Idioms Style Guide is specifically for Bash, so it is not portable to POSIX, Bourne, Dash or other shells. If you need to write for those shells you will need to test and tweak this guide to account for the supported syntax and feature of those shells.</p>
+<h3 id="readability">Readability</h3>
+<p>Readability of your code is important! Or as Python says, <em>Readability counts.</em> You only write it once, but you (and others) will probably read it many times. Spend the extra few seconds or minutes thinking about the poor clueless person trying to read the code next year...it's very likely to be you. There's a balance and a tension between abstraction (Don't Repeat Yourself) and readability.</p>
+<ul>
+<li>KISS (Keep it Simple, Stupid!)</li>
+<li>READABILITY: don't be &quot;clever,&quot; be clear</li>
+<li>Good names are critical!</li>
+<li>ALWAYS USE A HEADER</li>
+<li>If at all possible, emit something useful for <code>-h</code>, <code>--help</code> and incorrect arguments!
+<ul>
+<li>Prefer using a &quot;here&quot; document (with leading TABs) to a bunch of echo lines</li>
+</ul></li>
+<li>Use <code>source</code> (instead of <code>.</code>) to include config files, which should end in <code>.cfg</code> (or <code>.conf</code> or whatever your standard is)</li>
+<li>If at all possible use <a href="https://en.wikipedia.org/wiki/ISO-8601">ISO-8601</a> dates for everything</li>
+<li>If at all possible keep lists of things (e.g., ip addresses, hostnames, packages to install, whatever) in alphabetical order; this prevents duplication and makes it easier to add or remove items
+<ul>
+<li>This applies to <code>case</code> statements, contents of variables or arrays/lists, and wherever it makes sense</li>
+</ul></li>
+<li>If possible, use long arguments to commands for readability, e.g., use <code>diff --quiet</code> instead of <code>diff -q</code>, though watch out for portability to non GNU/Linux systems
+<ul>
+<li>If any options are short or obscure, add comments.</li>
+<li>Also strongly consider documenting why you chose or needed the options you chose, and even options you considered but didn't use for some reason.</li>
+<li>Definitely document any options that might seem like a good idea but that actually can cause problems, especially if they are options you commonly use elsewhere.</li>
+</ul></li>
+</ul>
+<h3 id="comments">Comments</h3>
+<ul>
+<li>ALWAYS USE A HEADER</li>
+<li>Write your comments for the new person on the team a year from now</li>
+<li>Comment your functions</li>
+<li>Do not comment on what you did. Comment on why you did, or did not do, something
+<ul>
+<li>Exception: comment on what you did when bash itself is obscure</li>
+</ul></li>
+<li>Consider adding comments about external program options, especially if they are short or obscure</li>
+</ul>
+<h3 id="names">Names</h3>
+<ul>
+<li>Good names are critical!</li>
+<li>Global variables and constants are in UPPER case
+<ul>
+<li>Prefer not to make changes to global variables, but sometimes that's just much simpler</li>
+<li>Use <code>readonly</code> or <code>declare -r</code> for constants</li>
+</ul></li>
+<li>Other variables are in lower case</li>
+<li>Functions are in Mixed_Case</li>
+<li>Use &quot;_&quot; in place of space or CamelCase (remember &quot;-&quot; is not allowed in variable names)</li>
+<li>Use bash arrays carefully, they can be hard to read (see chapter 7 of <em>bash Idioms</em>). <code>for var in $regular_var</code> often works as well.</li>
+<li>Replace <code>$1</code>, <code>$2</code>, .. <code>$N</code> with readable names ASAP
+<ul>
+<li>That makes everything much more debugable and readable, but also makes it easy to have defaults and add or re-arrange arguments</li>
+</ul></li>
+<li>Distinguish between types of referents, like <code>$input_file</code> vs. <code>$input_dir</code></li>
+<li>Use consistent &quot;FIXME&quot; and &quot;TODO&quot; labels, with names and ticket numbers if appropriate</li>
+</ul>
+<h3 id="functions">Functions</h3>
+<ul>
+<li>ALWAYS USE A HEADER</li>
+<li>Good names are critical!</li>
+<li>Functions must be defined before they are used
+<ul>
+<li>Group them at the top and use two blank lines and a function separator between each function.</li>
+<li>do NOT intersperse code between functions!</li>
+</ul></li>
+<li>Use Camel_Case and &quot;_&quot; to make function names stand out from variable names.</li>
+<li>Use <code>function My_Func_Name {</code> instead of <code>My_Func_Name() {</code> because it's more clear and easier to <code>grep -P '^\s*function '</code>.</li>
+<li>Each function should have comments defining: what it does, inputs (including GLOBALS), and outputs</li>
+<li>When you have useful, standalone pieces of code, make them a function.</li>
+<li>Use a function any time you use the same (or substantially similar) block of code more than once. If they are very common, like logging or emailing, consider creating a &quot;library.&quot; that is, a single common file you can source as needed.
+<ul>
+<li>Prefix &quot;library&quot; functions with &quot;_&quot;, like <code>_Log</code>, or some other prefix.</li>
+</ul></li>
+<li>Consider using &quot;filler&quot; words for readability in arguments if it makes sense, then define them as <code>local junk1=&quot;$2&quot; # unused filler</code>, e.g.:
+<ul>
+<li><code>_Create_File_If_Needed &quot;/path/to/$file&quot; containing 'important value'</code></li>
+</ul></li>
+<li>Do use the <code>local</code> builtin when setting variables in functions.
+<ul>
+<li>But be aware that it will mask a return code, so declare and assign it on separate lines if using command substitution, like <code>local my_input</code> and then <code>my_input=&quot;$(some-command)&quot;</code>.</li>
+</ul></li>
+<li>For any function longer than about 25 lines, close it with <code>} # end of function MyFuncName</code> to make it easier to track where you are in the code on your screen. For functions shorter than 25 lines this is optional but encouraged unless it gets too cluttered.</li>
+<li>Don't use a <code>main</code> function, it's almost always just an unnecessary layer.
+<ul>
+<li>That said, using &quot;main&quot; makes sense to Python and C programmers, or if the code is also used as a library, and it may be required if you do a lot of unit testing.</li>
+</ul></li>
+<li>Consider using 2 blank lines and a main separator above the main section, especially when you have a lot of functions and definitions at the top.</li>
+</ul>
+<h3 id="quoting">Quoting</h3>
+<ul>
+<li>Do put quotes around variables and strings because it makes them stand out a little and clarifies your intent
+<ul>
+<li>Unless it gets too cluttered</li>
+<li>Or they need to be unquoted for expansion</li>
+</ul></li>
+<li>Don't quote integers</li>
+<li>Use single quotes unless interpolation is required</li>
+<li>Don't use <code>${var}</code> unless needed, it's too cluttered
+<ul>
+<li>But that IS needed sometimes, like <code>${variable}_suffix</code> or <code>${being_lower_cased,,}</code></li>
+</ul></li>
+<li>Do quote command substitutions, like: <code>var=&quot;$(command)&quot;</code></li>
+<li>ALWAYS quote both sides of any test statement like <code>[[ &quot;$foo&quot; == &amp;#x27;bar&amp;#x27; ]]</code>
+<ul>
+<li>Unless you are using <code>~=</code> in which case you can't quote the regular expression!</li>
+</ul></li>
+<li>Consider single quoting variables inside <code>echo</code> statements, like pass:[<code>echo &quot;cd to '$DIR' failed.&quot;</code>] because it's more clear when a variable is unexpectedly undefined or empty
+<ul>
+<li>Or <code>echo &quot;cd to [$DIR] failed.&quot;</code> as you like</li>
+</ul></li>
+<li>Prefer single quotes around <code>printf</code> formats (see &quot;POSIX output&quot; in chapter 6 of <em>bash Idioms</em> and the rest of chapter 6 in general)</li>
+</ul>
+<h3 id="layout">Layout</h3>
+<ul>
+<li>Line things up! Multiple spaces almost never matter in bash (except around <code>=</code>), and lining up similar commands make it easier to read and to see both the similarities and differences.</li>
+<li>DO NOT ALLOW TRAILING WHITE SPACE! This will later cause noise in the VCS (version control system) when removed.</li>
+<li>Indent using 4 spaces, but use TAB with here-docs as needed</li>
+<li>Break long lines at around 78 columns, indent line continuations 2 spaces, and break just before <code>|</code> or <code>&gt;</code> so those parts jump out as you scan down the code</li>
+<li>The code to open a block goes on 1 line, like:
+<ul>
+<li><code>if expression; then</code></li>
+<li><code>for expression; do</code></li>
+</ul></li>
+<li>List elements in <code>case..esac</code> are indented 4 spaces and closing <code>;;</code> are at that same indent level, blocks for each item are also indented 4 spaces
+<ul>
+<li>One-line elements should be closed with <code>;;</code> on the same line</li>
+<li>Prefer lining up the <code>)</code> in each element, unless it gets cluttered or out of hand</li>
+<li>See the example code in <a href="https://github.com/vossenjp/bashidioms-examples/tree/master/ch08/parselonghelp.sh">parselonghelp.sh</a></li>
+</ul></li>
+</ul>
+<h3 id="syntax">Syntax</h3>
+<ul>
+<li>Use <code>#!/bin/bash -</code> or <code>#!/usr/bin/env bash</code> when writing bash code, not <code>#!/bin/sh</code></li>
+<li>Use <code>$@</code> unless you are <em>really</em> sure you need <code>$*</code></li>
+<li>Use <code>==</code> instead of <code>=</code> for equality, to reduce confusion with assignment</li>
+<li>Use <code>$()</code> instead of pass:[<code>``</code>] backticks/backquotes</li>
+<li>Use <code>[[</code> instead of <code>[</code></li>
+<li>Use <code>(( ))</code> and <code>$(( ))</code> as needed for integer arithmetic, avoid <code>let</code> and <code>expr</code></li>
+<li>Use <code>[[ expression ]] &amp;&amp; block</code> or <code>[[ expression ]] || block</code> when simple and readable. Do not use <code>[[ expression ]] &amp;&amp; block || block</code> because that doesn't do what you think it does, use <code>if .. (elif ..) then .. else</code> for that.</li>
+</ul>
+<h3 id="other">Other</h3>
+<ul>
+<li>For &quot;system&quot; scripts, log to syslog and let the OS worry about final destination(s), log rotation, etc.</li>
+<li>Error messages should go to STDOUT, like <code>echo 'A Bad Thing happened' &gt;&amp;2</code></li>
+<li>Sanity check that external tools are available</li>
+<li>Provide useful messages when things fail</li>
+<li>Set <code>exit</code> codes, especially when you fail</li>
+</ul>
+<h3 id="script-template">Script Template</h3>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co">#!/bin/bash -</span>
+<span class="co"># Or possibly: #!/usr/bin/env bash</span>
+<span class="co"># &lt;Name&gt;: &lt;description&gt;</span>
+<span class="co"># Original Author &amp; date:</span>
+<span class="co"># Current maintainer?</span>
+<span class="co"># Copyright/License?</span>
+<span class="co"># Where this code belongs?  (Hosts, paths, etc.)</span>
+<span class="co"># Project/repo?</span>
+<span class="co"># Caveats/gotchas?</span>
+<span class="co"># Usage?  (Better to have `-h` and/or `--help` options!)</span>
+<span class="co"># $URL$  # If using SVN</span>
+<span class="va">ID=</span><span class="st">&#39;&#39;</span>    # <span class="ex">If</span> using SVN
+<span class="co">#_________________________________________________________________________</span>
+<span class="va">PROGRAM=${0##</span>*/<span class="va">}</span>  # <span class="fu">bash</span> version of <span class="kw">`</span><span class="fu">basename</span><span class="kw">`</span>
+
+<span class="co"># GLOBAL and constant variables are in UPPER case</span>
+<span class="va">LOG_DIR=</span><span class="st">&#39;/path/to/log/dir&#39;</span>
+
+<span class="co"># Functions are in Mixed Case</span>
+<span class="co">###########################################################################</span>
+<span class="co"># Define functions</span>
+
+<span class="co">#--------------------------------------------------------------------------</span>
+<span class="co"># Example function</span>
+<span class="co"># Globals: none</span>
+<span class="co"># Input:   nothing</span>
+<span class="co"># Output:  nothing</span>
+<span class="kw">function</span><span class="fu"> foo</span> <span class="kw">{</span>
+    <span class="bu">local</span> <span class="va">var1=</span><span class="st">&quot;</span><span class="va">$1</span><span class="st">&quot;</span>
+    <span class="ex">...</span>
+<span class="kw">}</span> <span class="co"># end of function foo</span>
+
+
+<span class="co">#--------------------------------------------------------------------------</span>
+<span class="co"># Another example function</span>
+<span class="co"># Globals: none</span>
+<span class="co"># Input:   nothing</span>
+<span class="co"># Output:  nothing</span>
+<span class="kw">function</span><span class="fu"> bar</span> <span class="kw">{</span>
+    <span class="bu">local</span> <span class="va">var1=</span><span class="st">&quot;</span><span class="va">$1</span><span class="st">&quot;</span>
+    <span class="ex">...</span>
+<span class="kw">}</span> <span class="co"># end of function bar</span>
+
+
+<span class="co">###########################################################################</span>
+<span class="co"># Main</span>
+<span class="ex">...</span></code></pre></div>
+</body>
+</html>

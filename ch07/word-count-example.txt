@@ -1,0 +1,28 @@
+Creating & reading random word list in: /tmp/words.txt
+
+Unique words from: /tmp/words.txt
+bar
+baz
+foo
+four
+one
+three
+two
+
+Word counts, ordered by word, from: /tmp/words.txt
+bar	7
+baz	6
+foo	4
+four	3
+one	5
+three	4
+two	6
+
+Word counts, ordered by count, from: /tmp/words.txt
+four	3
+foo	4
+three	4
+one	5
+baz	6
+two	6
+bar	7

@@ -1,0 +1,8 @@
+
+Say I have this string: Acme Inc subnet 10.11.12.13/24
+
+Customer name: Acme Inc 
+Subnet:        10.11.12.13/24
+IPA            10.11.12.13
+CIDR mask:     24
+FW Object:     acme_inc_subnet_10.11.12.13-24

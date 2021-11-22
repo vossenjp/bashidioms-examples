@@ -1,0 +1,34 @@
+
+The key count is: 5 or 5
+
+The length of the value of key [e] is: 10
+
+Dump or list:
+declare -A myhash=([a]="foo" [b]="bar" [c]="baz" [d]="one two" [e]="three four" )
+${myhash[@]}   = foo|bar|baz|one|two|three|four|
+${myhash[*]}   = foo|bar|baz|one|two|three|four|
+"${myhash[@]}" = foo|bar|baz|one\ two|three\ four|
+"${myhash[*]}" = foo\ bar\ baz\ one\ two\ three\ four|
+
+foreach "${!myhash[@]}":
+	Key: a; value: foo
+	Key: b; value: bar
+	Key: c; value: baz
+	Key: d; value: one two
+	Key: e; value: three four
+
+But don't do this: ${myhash[*]}
+	Key: foo; value: 
+	Key: bar; value: 
+	Key: baz; value: 
+	Key: one; value: 
+	Key: two; value: 
+	Key: three; value: 
+	Key: four; value: 
+
+Start from element 3 and show a slice of 2 elements:
+baz|one\ two|
+
+Delete key c using unset (dumped before and after):
+declare -A myhash=([a]="foo" [b]="bar" [c]="baz" [d]="one two" [e]="three four" )
+declare -A myhash=([a]="foo" [b]="bar" [d]="one two" [e]="three four" )

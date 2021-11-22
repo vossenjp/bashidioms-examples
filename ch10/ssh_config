@@ -1,0 +1,23 @@
+# ssh_config: SAMPLE SSH config file to create a menu from ~/.ssh/config
+# Original Author & date: _bash Idioms_ 2022
+# bash Idioms filename: examples/ch10/ssh_config
+#_________________________________________________________________________
+
+Host git.atlas.oreilly.com
+    User foo
+
+Host gitlab.com
+    User bar
+    IdentityFile ~/.ssh/id_gitlab
+    IdentitiesOnly yes
+
+Host github.com
+    User baz
+    IdentityFile ~/.ssh/id_github
+    IdentitiesOnly yes
+
+host mythtv-be01
+    User myth
+
+host kitchen
+    User shared
