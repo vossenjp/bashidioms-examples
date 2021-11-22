@@ -87,9 +87,9 @@ Readability of your code is important!  Or as Python says, _Readability counts._
 * Don't use `${var}` unless needed, it's too cluttered
     * But that IS needed sometimes, like `${variable}_suffix` or `${being_lower_cased,,}`
 * Do quote command substitutions, like: `var="$(command)"`
-* ALWAYS quote both sides of any test statement like `[[ "$foo" == &#x27;bar&#x27; ]]`
+* ALWAYS quote both sides of any test statement like `[[ "$foo" == 'bar' ]]`
     * Unless you are using `~=` in which case you can't quote the regular expression!
-* Consider single quoting variables inside `echo` statements, like pass:[<code>echo "cd to '$DIR' failed."</code>] because it's more clear when a variable is unexpectedly undefined or empty
+* Consider single quoting variables inside `echo` statements, like `` echo "cd to '$DIR' failed." `` because it's more clear when a variable is unexpectedly undefined or empty
     * Or `echo "cd to [$DIR] failed."` as you like
 * Prefer single quotes around `printf` formats (see "POSIX output" in chapter 6 of _bash Idioms_ and the rest of chapter 6 in general)
 
@@ -114,7 +114,7 @@ Readability of your code is important!  Or as Python says, _Readability counts._
 * Use `#!/bin/bash -` or `#!/usr/bin/env bash` when writing bash code, not `#!/bin/sh`
 * Use `$@` unless you are _really_ sure you need `$*`
 * Use `==` instead of `=` for equality, to reduce confusion with assignment
-* Use `$()` instead of pass:[<code>``</code>] backticks/backquotes
+* Use `$()` instead of `` `` `` backticks/backquotes
 * Use `[[` instead of `[`
 * Use `(( ))` and `$(( ))` as needed for integer arithmetic, avoid `let` and `expr`
 * Use `[[ expression ]] && block` or `[[ expression ]] || block` when simple and readable. Do not use `[[ expression ]] && block || block` because that doesn't do what you think it does, use `if .. (elif ..) then .. else` for that.
