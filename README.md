@@ -18,6 +18,7 @@ Each sub-directory contains the important, long, or difficult-to-type examples f
 * `appa\` is the "Bash Idioms Style Guide" from chapter 11, but without the commentary and discussion:
     * HTML version: `bash_idioms_style_guide.html`.
     * Markdown version: `bash_idioms_style_guide.md`.
+        * <https://github.com/vossenjp/bashidioms-examples/blob/main/appa/bash_idioms_style_guide.md>
 * `template.sh` is a sample boilerplate or template script to copy when creating a new script.
 * `ch*\` examples from chapters:
     * `*.sh` is the actual bash code.
