@@ -11,9 +11,9 @@ OUTPUT_INCLUDE_FILE='examples/ch10/embedded-docs.out'
 # We do not do that here because our "example code output updater" already
 # does itself, the way we want it to.
 
-echo '### Running looks like this (`./embedded-docs.sh`):'
+echo '### Running looks like this (`./embedded-docs.sh`): <1>'
 examples/ch10/embedded-docs.sh
 
 echo -e "\n"
-echo '### Emitting (un-rendered) documentation looks like this (`./embedded-docs.sh --emit-docs`):'
+echo '### Emitting (un-rendered) docs looks like this (`./embedded-docs.sh --emit-docs`): <6>'
 examples/ch10/embedded-docs.sh --emit-docs

@@ -12,12 +12,12 @@
     exit 0
 }
 
-echo 'Code, code, code...'
+echo 'Code, code, code... <2>'
 echo 'Code, code, code...'
 : << 'DOCS'
-=== Docs for My Script
+=== Docs for My Script <7>
 
-Docs can be Markdown, AsciiDoc, Textile, whatever.
+Docs can be Markdown, AsciiDoc, Textile, whatever.  This block is just generic markup.
 
 We've wrapped them using the no-op ':' operator and a here-doc, but you
 have to remember it's not bash that's processing the here-docs, so using
@@ -26,27 +26,36 @@ variable interpolation either, or rather, it will, but that won't affect your
 documentation output.  So always quote your here-doc marker so your docs do
 not interfere with your script (e.g., via the backticks we'll use below).
 
+All of your docs could be grouped near the top of the file, like this,
+for discoverability.  Or they could all be at the bottom, to stay grouped,
+but out of the way of the code.  Or they could be interspersedto stay near
+the relevant code.  Do whatever makes sense to you and your team.
+
 DOCS
-echo 'More code, code, code...'
+echo 'More code, code, code... <3>'
 echo 'More code, code, code...'
 : << 'DOCS'
-=head1 POD Example
+=head1 POD Example <8>
 
-If you use Perl POD (Plain Old Documentation), you can then use `perldoc`
-and the various `pod2*` tools, like `pod2html` that handle that.  But you
-can't indent if using POD or Perl won't see the markup, unless you
-pre-process the indent away before feeding the POD tools.
+This block is Perl POD (Plain Old Documentation).
+
+If you use POD, you can then use `perldoc` and the various `pod2*` tools,
+like `pod2html` that handle that.  But you can't indent if using POD or
+Perl won't see the markup, unless you pre-process the indent away before
+feeding the POD tools.
 
 And don't forget the `=cut` line!
 
 =cut
 
 DOCS
-echo 'Still more code, code, code...'
+echo 'Still more code, code, code... <4>'
 echo 'Still more code, code, code...'
 : << 'DOCS'
-	Emitting Documentation
+	Emitting Documentation <9>
 	----------------------
+
+	This could be POD or markup, whatever.
 
 	This section uses a TAB indented here-doc, just because we can, but we
 	handle that in the Perl post processor, not via bash. :-/
@@ -67,12 +76,16 @@ echo 'Still more code, code, code...'
 
 DOCS
 
-echo 'End of code...'
+echo 'End of code... <5>'
 
 exit 0  # Unless we already exited >0 above
 
 : << 'DOCS'
-h2. Code at the end
+h2. More Docs AFTER the code <10>
+
+This block is back to generic markup.  We do *not* recommend mixing and
+matching like we've done here!  Pick a markup and some tools and stick to
+them.  If in doubt, Github has made Markdown _very_ popular.
 
 Docs can just go *after* the end of the code.  There's an argument for putting
 all the docs together in one place at the top or bottom of the script.  This
