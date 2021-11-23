@@ -12,7 +12,7 @@
     exit 0
 }
 
-echo 'Code, code, code... <2>'
+echo 'Code, code, code... <2>' # <2>
 echo 'Code, code, code...'
 : << 'DOCS'
 === Docs for My Script <7>
@@ -32,7 +32,7 @@ but out of the way of the code.  Or they could be interspersedto stay near
 the relevant code.  Do whatever makes sense to you and your team.
 
 DOCS
-echo 'More code, code, code... <3>'
+echo 'More code, code, code... <3>' # <3>
 echo 'More code, code, code...'
 : << 'DOCS'
 =head1 POD Example <8>
@@ -49,7 +49,7 @@ And don't forget the `=cut` line!
 =cut
 
 DOCS
-echo 'Still more code, code, code... <4>'
+echo 'Still more code, code, code... <4>' # <4>
 echo 'Still more code, code, code...'
 : << 'DOCS'
 	Emitting Documentation <9>
@@ -76,7 +76,7 @@ echo 'Still more code, code, code...'
 
 DOCS
 
-echo 'End of code... <5>'
+echo 'End of code... <5>' # <5>
 
 exit 0  # Unless we already exited >0 above
 
