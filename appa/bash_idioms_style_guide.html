@@ -201,7 +201,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Use <code>$()</code> instead of <code>``</code> backticks/backquotes</li>
 <li>Use <code>[[</code> instead of <code>[</code></li>
 <li>Use <code>(( ))</code> and <code>$(( ))</code> as needed for integer arithmetic, avoid <code>let</code> and <code>expr</code></li>
-<li>Use <code>[[ expression ]] &amp;&amp; block</code> or <code>[[ expression ]] || block</code> when simple and readable. Do not use <code>[[ expression ]] &amp;&amp; block || block</code> because that doesn't do what you think it does, use <code>if .. then .. (elif ..) else</code> for that.</li>
+<li>Use <code>[[ expression ]] &amp;&amp; block</code> or <code>[[ expression ]] || block</code> when simple and readable. Do not use <code>[[ expression ]] &amp;&amp; block || block</code> because that doesn't do what you think it does, use <code>if .. then .. (elif ..) else .. fi</code> for that.</li>
 </ul>
 <h3 id="other">Other</h3>
 <ul>

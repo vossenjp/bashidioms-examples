@@ -117,7 +117,7 @@ Readability of your code is important!  Or as Python says, _Readability counts._
 * Use `$()` instead of `` `` `` backticks/backquotes
 * Use `[[` instead of `[`
 * Use `(( ))` and `$(( ))` as needed for integer arithmetic, avoid `let` and `expr`
-* Use `[[ expression ]] && block` or `[[ expression ]] || block` when simple and readable. Do not use `[[ expression ]] && block || block` because that doesn't do what you think it does, use `if .. then .. (elif ..) else` for that.
+* Use `[[ expression ]] && block` or `[[ expression ]] || block` when simple and readable. Do not use `[[ expression ]] && block || block` because that doesn't do what you think it does, use `if .. then .. (elif ..) else .. fi` for that.
 
 
 ### Other
