@@ -3,6 +3,7 @@
 # Original Author & date: _bash Idioms_ 2022
 # bash Idioms filename: examples/ch07/word-count-example.sh
 #_________________________________________________________________________
+# Does not work on zsh 5.4.2!
 # See also: `man uniq`
 
 WORD_FILE='/tmp/words.txt'

@@ -3,6 +3,7 @@
 # Original Author & date: _bash Idioms_ 2022
 # bash Idioms filename: examples/ch04/parameter-expansion.sh
 #_________________________________________________________________________
+# Does not work on zsh 5.4.2!
 
 customer_subnet_name='Acme Inc subnet 10.11.12.13/24'
 

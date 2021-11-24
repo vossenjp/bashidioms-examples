@@ -3,6 +3,7 @@
 # Original Author & date: _bash Idioms_ 2022
 # bash Idioms filename: examples/ch07/hashes.sh
 #_________________________________________________________________________
+# Does not work on zsh 5.4.2!
 
 # Declare a hash                                                         <1>
 declare -A myhash   # MUST do this, or `local -A` or `readonly -A`

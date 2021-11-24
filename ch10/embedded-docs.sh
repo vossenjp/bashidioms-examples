@@ -3,6 +3,7 @@
 # Original Author & date: _bash Idioms_ 2022
 # bash Idioms filename: examples/ch10/embedded-docs.sh
 #_________________________________________________________________________
+# Does not work on zsh 5.4.2!
 
 [ "$1" == '--emit-docs' ] && {
     # Use the Perl "range" operator to print only the lines BETWEEN the bash

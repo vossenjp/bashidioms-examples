@@ -3,6 +3,7 @@
 # Original Author & date: _bash Idioms_ 2022
 # bash Idioms filename: examples/ch07/lists.sh
 #_________________________________________________________________________
+# Does not work on zsh 5.4.2!
 
 # Declare a list                                                         <1>
 # declare -a mylist   # Can do this, or `local -a` or `readonly -a` or:
