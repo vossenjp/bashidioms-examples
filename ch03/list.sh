@@ -5,21 +5,21 @@
 #_________________________________________________________________________
 VERSION='v1.2b'
 
-function usagexit {
+function Usage_Exit {
     echo "$0 [color|last|len|long]"
     exit
 }
 
 # Show each filename preceded by the length of its name, sorted by
 # filename length
-function lslen {
+function Ls-Length {
     ls -1 "$@" \
     | while read fn; do
         printf '%3d %s\n' ${#fn} ${fn}
     done | sort -n
 }
 
-(( $# < 1 )) && usagexit                                               # <1>
+(( $# < 1 )) && Usage_Exit                                             # <1>
 sub=$1
 shift
 
@@ -33,15 +33,15 @@ case $sub in
     ;;
 
     len*)                                 # Files with name lengths    # <3>
-        lslen "$@"
+        Ls-Length "$@"
     ;;
 
     long)                                 # File with longest name
-        lslen "$@" | tail -1
+        Ls-Length "$@" | tail -1
     ;;
 
     *) # Default
         echo "unknown command: $sub"
-        usagexit
+        Usage_Exit
     ;;
 esac

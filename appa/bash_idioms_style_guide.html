@@ -66,7 +66,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3 id="bash-idioms-style-guide-is-not-portable">Bash Idioms Style Guide is not portable</h3>
 <p>This Bash Idioms Style Guide is specifically for Bash, so it is not portable to POSIX, Bourne, Dash or other shells. If you need to write for those shells you will need to test and tweak this guide to account for the supported syntax and feature of those shells.</p>
 <h3 id="readability">Readability</h3>
-<p>Readability of your code is important! Or as Python says, <em>Readability counts.</em> You only write it once, but you (and others) will probably read it many times. Spend the extra few seconds or minutes thinking about the poor clueless person trying to read the code next year...it's very likely to be you. There's a balance and a tension between abstraction (Don't Repeat Yourself) and readability.</p>
+<p>Readability of your code is important! Or as Python says, <em>readability counts.</em> You only write it once, but you (and others) will probably read it many times. Spend the extra few seconds or minutes thinking about the poor clueless person trying to read the code next year...it's very likely to be you. There's a balance and a tension between abstraction (Don't Repeat Yourself) and readability.</p>
 <ul>
 <li>KISS (Keep it Simple, Stupid!)</li>
 <li>READABILITY: don't be &quot;clever,&quot; be clear</li>
@@ -74,9 +74,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>ALWAYS USE A HEADER</li>
 <li>If at all possible, emit something useful for <code>-h</code>, <code>--help</code> and incorrect arguments!
 <ul>
-<li>Prefer using a &quot;here&quot; document (with leading TABs) to a bunch of echo lines</li>
+<li>Prefer using a &quot;here&quot; document (with leading TABs) to a bunch of echo lines because there's less friction when you need to update and probably re-wrap it later</li>
 </ul></li>
-<li>Use <code>source</code> (instead of <code>.</code>) to include config files, which should end in <code>.cfg</code> (or <code>.conf</code> or whatever your standard is)</li>
+<li>Use <code>source</code> (instead of <code>.</code> which is easy to miss seeing and harder to search for) to include config files, which should end in <code>.cfg</code> (or <code>.conf</code> or whatever your standard is)</li>
 <li>If at all possible use <a href="https://en.wikipedia.org/wiki/ISO-8601">ISO-8601</a> dates for everything</li>
 <li>If at all possible keep lists of things (e.g., ip addresses, hostnames, packages to install, whatever) in alphabetical order; this prevents duplication and makes it easier to add or remove items
 <ul>
@@ -131,8 +131,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Use Camel_Case and &quot;_&quot; to make function names stand out from variable names.</li>
 <li>Use <code>function My_Func_Name {</code> instead of <code>My_Func_Name() {</code> because it's more clear and easier to <code>grep -P '^\s*function '</code>.</li>
 <li>Each function should have comments defining: what it does, inputs (including GLOBALS), and outputs</li>
-<li>When you have useful, standalone pieces of code, make them a function.</li>
-<li>Use a function any time you use the same (or substantially similar) block of code more than once. If they are very common, like logging or emailing, consider creating a &quot;library.&quot; that is, a single common file you can source as needed.
+<li>When you have useful, standalone pieces of code, or any time you use the same (or substantially similar) block of code more than once, make them into functions. If they are very common, like logging or emailing, consider creating a &quot;library.&quot; that is, a single common file you can source as needed.
 <ul>
 <li>Prefix &quot;library&quot; functions with &quot;_&quot;, like <code>_Log</code>, or some other prefix.</li>
 </ul></li>
@@ -142,7 +141,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li>Do use the <code>local</code> builtin when setting variables in functions.
 <ul>
-<li>But be aware that it will mask a return code, so declare and assign it on separate lines if using command substitution, like <code>local my_input</code> and then <code>my_input=&quot;$(some-command)&quot;</code>.</li>
+<li>But be aware that successfully being &quot;local&quot; it will mask a failed return code, so declare and assign it on separate lines if using command substitution, like <code>local my_input</code> and then <code>my_input=&quot;$(some-command)&quot;</code>.</li>
 </ul></li>
 <li>For any function longer than about 25 lines, close it with <code>} # end of function MyFuncName</code> to make it easier to track where you are in the code on your screen. For functions shorter than 25 lines this is optional but encouraged unless it gets too cluttered.</li>
 <li>Don't use a <code>main</code> function, it's almost always just an unnecessary layer.
@@ -167,11 +166,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Do quote command substitutions, like: <code>var=&quot;$(command)&quot;</code></li>
 <li>ALWAYS quote both sides of any test statement like <code>[[ &quot;$foo&quot; == 'bar' ]]</code>
 <ul>
-<li>Unless you are using <code>~=</code> in which case you can't quote the regular expression!</li>
+<li>Unless one side is an integer</li>
+<li>And unless you are using <code>~=</code> in which case you can't quote the regular expression!</li>
 </ul></li>
 <li>Consider single quoting variables inside <code>echo</code> statements, like <code>echo &quot;cd to '$DIR' failed.&quot;</code> because it's more clear when a variable is unexpectedly undefined or empty
 <ul>
 <li>Or <code>echo &quot;cd to [$DIR] failed.&quot;</code> as you like</li>
+<li>If using <code>set -u</code> you will get an error if the variable is not defined, but not if it is defined but is just unexpectedly empty</li>
 </ul></li>
 <li>Prefer single quotes around <code>printf</code> formats (see &quot;POSIX output&quot; in chapter 6 of <em>bash Idioms</em> and the rest of chapter 6 in general)</li>
 </ul>
@@ -202,12 +203,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Use <code>[[</code> instead of <code>[</code></li>
 <li>Use <code>(( ))</code> and <code>$(( ))</code> as needed for integer arithmetic, avoid <code>let</code> and <code>expr</code></li>
 <li>Use <code>[[ expression ]] &amp;&amp; block</code> or <code>[[ expression ]] || block</code> when simple and readable. Do not use <code>[[ expression ]] &amp;&amp; block || block</code> because that doesn't do what you think it does, use <code>if .. then .. (elif ..) else .. fi</code> for that.</li>
+<li>Consider using &quot;Unofficial bash Strict Mode&quot; (&quot;Unofficial bash Strict Mode&quot; in chapter 9 of <em>bash Idioms</em>):
+<ul>
+<li><code>set -euo pipefail</code> will prevent or unmask many simple errors</li>
+<li>Watch out for this one, and use it carefully, if you use it at all <code>IFS=$'\n\t'</code></li>
+</ul></li>
 </ul>
 <h3 id="other">Other</h3>
 <ul>
 <li>For &quot;system&quot; scripts, log to syslog and let the OS worry about final destination(s), log rotation, etc.</li>
 <li>Error messages should go to STDOUT, like <code>echo 'A Bad Thing happened' &gt;&amp;2</code></li>
-<li>Sanity check that external tools are available</li>
+<li>Sanity check that external tools are available using <code>[ -x '/path/to/tool' ] || { ...error code block... }</code></li>
 <li>Provide useful messages when things fail</li>
 <li>Set <code>exit</code> codes, especially when you fail</li>
 </ul>
@@ -226,6 +232,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="va">ID=</span><span class="st">&#39;&#39;</span>    # <span class="ex">If</span> using SVN
 <span class="co">#_________________________________________________________________________</span>
 <span class="va">PROGRAM=${0##</span>*/<span class="va">}</span>  # <span class="fu">bash</span> version of <span class="kw">`</span><span class="fu">basename</span><span class="kw">`</span>
+
+<span class="co"># Unofficial bash Strict Mode?</span>
+<span class="co">#set -euo pipefail</span>
+<span class="co">### CAREFUL: IFS=$&#39;\n\t&#39;</span>
 
 <span class="co"># GLOBAL and constant variables are in UPPER case</span>
 <span class="va">LOG_DIR=</span><span class="st">&#39;/path/to/log/dir&#39;</span>

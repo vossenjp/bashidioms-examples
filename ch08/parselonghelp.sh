@@ -31,7 +31,7 @@ function Display_Help {
     # Tab indents above!
     # If we have this next line the script will always exit after calling
     # Display_Help.  You may or may not want that...you decide.
-    # exit 0  # If you use this, remove the other exits after the call!
+    # exit 1  # If you use this, remove the other exits after the call!
 } # end of function Display_Help
 
 while getopts ':-:adho:vV' VAL ; do
@@ -40,7 +40,7 @@ while getopts ':-:adho:vV' VAL ; do
         # you reduce the chances of a collision
         a ) AMODE=1 ;;
         d ) DEBUG='echo' ;;
-        h ) Display_Help && exit 0 ;;       # We violated our style here
+        h ) Display_Help && exit 1 ;;       # We violated our style here
         o ) OFILE="$OPTARG" ;;
         v ) VERBOSE='echo'  ;;
         V ) echo "$VERSION" && exit 0 ;;    # We violated our style here too
@@ -51,7 +51,7 @@ while getopts ':-:adho:vV' VAL ; do
                 debug     ) DEBUG='echo' ;;
                 help      )
                     Display_Help
-                    exit 0
+                    exit 1
                 ;;
                 outfile=* ) OFILE="${OPTARG#*=}" ;;
                 outfile   )

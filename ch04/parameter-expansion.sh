@@ -8,7 +8,7 @@
 customer_subnet_name='Acme Inc subnet 10.11.12.13/24'
 
 echo ''
-echo "Say I have this string: $customer_subnet_name"
+echo "Say we have this string: $customer_subnet_name"
 
 customer_name=${customer_subnet_name%subnet*}  # Trim from 'subnet' to end
 subnet=${customer_subnet_name##* }             # Remove leading 'space*'
@@ -18,6 +18,8 @@ fw_object_name=${customer_subnet_name// /_}    # Replace space with '_-
 fw_object_name=${fw_object_name////-}          # Replace '/' with '-'
 fw_object_name=${fw_object_name,,}             # Lower case
 
+echo ''
+echo 'When the code runs we get:'
 echo ''
 echo "Customer name: $customer_name"
 echo "Subnet:        $subnet"
@@ -49,8 +51,8 @@ echo "FW Object:     $fw_object_name"
 # ${var:+replaced}              Expand to +replaced+ if +var+ _is_ set
 
 # ${#var}                       Length of var
-# ${!var[@]}                    Expand to indexes or keys
-# ${!var[*]}                    Expand to indexes or keys, quoted
+# ${!var[*]}                    Expand to indexes or keys
+# ${!var[@]}                    Expand to indexes or keys, quoted
 
 # ${!prefix*}                   Expand to variable names starting with +prefix+
 # ${!prefix@}                   Expand to variable names starting with +prefix+, quoted

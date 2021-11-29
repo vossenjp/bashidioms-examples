@@ -31,7 +31,7 @@ node_counter=0
 batch_counter=0
 # While we're reading data...    && there is still data in $HOSTS_FILE
 while mapfile -t -n $BATCH_SIZE nodes && ((${#nodes[@]})); do
-    for node in ${nodes[@]}; do
+    for node in ${nodes[@]}; do                                       # <4>
         echo "node $(( node_counter++ )): $node"
         sleep $SLEEP_SECS_PER_NODE
     done

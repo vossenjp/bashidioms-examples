@@ -1,5 +1,7 @@
 
-Say I have this string: Acme Inc subnet 10.11.12.13/24
+Say we have this string: Acme Inc subnet 10.11.12.13/24
+
+When the code runs we get:
 
 Customer name: Acme Inc 
 Subnet:        10.11.12.13/24

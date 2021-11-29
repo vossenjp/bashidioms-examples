@@ -10,15 +10,15 @@ This Bash Idioms Style Guide is specifically for Bash, so it is not portable to 
 
 ### Readability
 
-Readability of your code is important!  Or as Python says, _Readability counts._  You only write it once, but you (and others) will probably read it many times.  Spend the extra few seconds or minutes thinking about the poor clueless person trying to read the code next year...it's very likely to be you.  There's a balance and a tension between abstraction (Don't Repeat Yourself) and readability.
+Readability of your code is important!  Or as Python says, _readability counts._  You only write it once, but you (and others) will probably read it many times.  Spend the extra few seconds or minutes thinking about the poor clueless person trying to read the code next year...it's very likely to be you.  There's a balance and a tension between abstraction (Don't Repeat Yourself) and readability.
 
 * KISS (Keep it Simple, Stupid!)
 * READABILITY: don't be "clever," be clear
 * Good names are critical!
 * ALWAYS USE A HEADER
 * If at all possible, emit something useful for `-h`, `--help` and incorrect arguments!
-    * Prefer using a "here" document (with leading TABs) to a bunch of echo lines
-* Use `source` (instead of `.`) to include config files, which should end in `.cfg` (or `.conf` or whatever your standard is)
+    * Prefer using a "here" document (with leading TABs) to a bunch of echo lines because there's less friction when you need to update and probably re-wrap it later
+* Use `source` (instead of `.` which is easy to miss seeing and harder to search for) to include config files, which should end in `.cfg` (or `.conf` or whatever your standard is)
 * If at all possible use [ISO-8601](https://en.wikipedia.org/wiki/ISO-8601) dates for everything
 * If at all possible keep lists of things (e.g., ip addresses, hostnames, packages to install, whatever) in alphabetical order; this prevents duplication and makes it easier to add or remove items
     * This applies to `case` statements, contents of variables or arrays/lists, and wherever it makes sense
@@ -64,13 +64,12 @@ Readability of your code is important!  Or as Python says, _Readability counts._
 * Use Camel_Case and "_" to make function names stand out from variable names.
 * Use `function My_Func_Name {` instead of `My_Func_Name() {` because it's more clear and easier to `grep -P '^\s*function '`.
 * Each function should have comments defining: what it does, inputs (including GLOBALS), and outputs
-* When you have useful, standalone pieces of code, make them a function.
-* Use a function any time you use the same (or substantially similar) block of code more than once.  If they are very common, like logging or emailing, consider creating a "library." that is, a single common file you can source as needed.
+* When you have useful, standalone pieces of code, or any time you use the same (or substantially similar) block of code more than once, make them into functions.  If they are very common, like logging or emailing, consider creating a "library." that is, a single common file you can source as needed.
     * Prefix "library" functions with "_", like `_Log`, or some other prefix.
 * Consider using "filler" words for readability in arguments if it makes sense, then define them as `local junk1="$2" # unused filler`, e.g.:
     * `_Create_File_If_Needed "/path/to/$file" containing 'important value'`
 * Do use the `local` builtin when setting variables in functions.
-    * But be aware that it will mask a return code, so declare and assign it on separate lines if using command substitution, like `local my_input` and then `my_input="$(some-command)"`.
+    * But be aware that successfully being "local" it will mask a failed return code, so declare and assign it on separate lines if using command substitution, like `local my_input` and then `my_input="$(some-command)"`.
 * For any function longer than about 25 lines, close it with `} # end of function MyFuncName` to make it easier to track where you are in the code on your screen. For functions shorter than 25 lines this is optional but encouraged unless it gets too cluttered.
 * Don't use a `main` function, it's almost always just an unnecessary layer.
     * That said, using "main" makes sense to Python and C programmers, or if the code is also used as a library, and it may be required if you do a lot of unit testing.
@@ -88,9 +87,11 @@ Readability of your code is important!  Or as Python says, _Readability counts._
     * But that IS needed sometimes, like `${variable}_suffix` or `${being_lower_cased,,}`
 * Do quote command substitutions, like: `var="$(command)"`
 * ALWAYS quote both sides of any test statement like `[[ "$foo" == 'bar' ]]`
-    * Unless you are using `~=` in which case you can't quote the regular expression!
+    * Unless one side is an integer
+    * And unless you are using `~=` in which case you can't quote the regular expression!
 * Consider single quoting variables inside `echo` statements, like `` echo "cd to '$DIR' failed." `` because it's more clear when a variable is unexpectedly undefined or empty
     * Or `echo "cd to [$DIR] failed."` as you like
+    * If using `set -u` you will get an error if the variable is not defined, but not if it is defined but is just unexpectedly empty
 * Prefer single quotes around `printf` formats (see "POSIX output" in chapter 6 of _bash Idioms_ and the rest of chapter 6 in general)
 
 
@@ -118,13 +119,16 @@ Readability of your code is important!  Or as Python says, _Readability counts._
 * Use `[[` instead of `[`
 * Use `(( ))` and `$(( ))` as needed for integer arithmetic, avoid `let` and `expr`
 * Use `[[ expression ]] && block` or `[[ expression ]] || block` when simple and readable. Do not use `[[ expression ]] && block || block` because that doesn't do what you think it does, use `if .. then .. (elif ..) else .. fi` for that.
+* Consider using "Unofficial bash Strict Mode" ("Unofficial bash Strict Mode" in chapter 9 of _bash Idioms_):
+    * `set -euo pipefail` will prevent or unmask many simple errors
+    * Watch out for this one, and use it carefully, if you use it at all `IFS=$'\n\t'`
 
 
 ### Other
 
 * For "system" scripts, log to syslog and let the OS worry about final destination(s), log rotation, etc.
 * Error messages should go to STDOUT, like `echo 'A Bad Thing happened' >&2`
-* Sanity check that external tools are available
+* Sanity check that external tools are available using `[ -x '/path/to/tool' ] || { ...error code block... }`
 * Provide useful messages when things fail
 * Set `exit` codes, especially when you fail
 
@@ -146,6 +150,10 @@ Readability of your code is important!  Or as Python says, _Readability counts._
 ID=''    # If using SVN
 #_________________________________________________________________________
 PROGRAM=${0##*/}  # bash version of `basename`
+
+# Unofficial bash Strict Mode?
+#set -euo pipefail
+### CAREFUL: IFS=$'\n\t'
 
 # GLOBAL and constant variables are in UPPER case
 LOG_DIR='/path/to/log/dir'

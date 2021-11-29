@@ -13,6 +13,10 @@ ID=''    # If using SVN
 #_________________________________________________________________________
 PROGRAM=${0##*/}  # bash version of `basename`
 
+# Unofficial bash Strict Mode?
+#set -euo pipefail
+### CAREFUL: IFS=$'\n\t'
+
 # GLOBAL and constant variables are in UPPER case
 LOG_DIR='/path/to/log/dir'
 
