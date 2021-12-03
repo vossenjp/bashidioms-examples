@@ -98,8 +98,10 @@ case "$action" in                                                      # <6>
     id )                 ## Convert a hack/recipe name to an ID
         #us_text=${text// /_}  # Space to '_'
         #lc_text=${us_text,,}  # Lower case; Bash 4+ only!
-        # Initial `tr -s '_' ' '` to preserve _ in case we process an ID twice (like from "xref")
-        Output $(echo $text | tr -s '_' ' ' | tr '[:upper:]' '[:lower:]' | tr -d '[:punct:]' | tr -s ' ' '_')
+        # Initial `tr -s '_' ' '` to preserve _ in case we process an ID
+        # twice (like from "xref")
+        Output $(echo $text | tr -s '_' ' ' | tr '[:upper:]' '[:lower:]' \
+          | tr -d '[:punct:]' | tr -s ' ' '_')
     ;;
 
     index )              ## Creates 'index.txt' in AsciiDoc dir
