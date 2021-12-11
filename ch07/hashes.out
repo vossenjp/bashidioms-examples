@@ -1,34 +1,46 @@
 
-The key count is: 5 or 5
+The key count is: 7 or 7
 
-The length of the value of key [e] is: 10
+The length of the value of key [e] is: 4
 
 Dump or list:
-declare -A myhash=([a]="foo" [b]="bar" [c]="baz" [d]="one two" [e]="three four" )
-${myhash[@]}   = foo|bar|baz|one|two|three|four|
-${myhash[*]}   = foo|bar|baz|one|two|three|four|
-"${myhash[@]}" = foo|bar|baz|one\ two|three\ four|
-"${myhash[*]}" = foo\ bar\ baz\ one\ two\ three\ four|
+declare -A myhash=([a]="foo" [b]="bar" [c]="baz" [d]="three" [e]="four" [f]="five by five" [g]="six" )
+${myhash[@]}   = foo|bar|baz|three|four|five|by|five|six|
+${myhash[*]}   = foo|bar|baz|three|four|five|by|five|six|
+"${myhash[@]}" = foo|bar|baz|three|four|five\ by\ five|six|
+"${myhash[*]}" = foo\ bar\ baz\ three\ four\ five\ by\ five\ six|	# But this is broken!
 
+Join ${myhash[@]} = foo,bar,baz,three,four,five by five,six
+String_Join ${myhash[@]} = foo<>bar<>baz<>three<>four<>five by five<>six
 foreach "${!myhash[@]}":
 	Key: a; value: foo
 	Key: b; value: bar
 	Key: c; value: baz
-	Key: d; value: one two
-	Key: e; value: three four
+	Key: d; value: three
+	Key: e; value: four
+	Key: f; value: five by five
+	Key: g; value: six
 
 But don't do this: ${myhash[*]}
 	Key: foo; value: 
 	Key: bar; value: 
 	Key: baz; value: 
-	Key: one; value: 
-	Key: two; value: 
 	Key: three; value: 
 	Key: four; value: 
+	Key: five; value: 
+	Key: by; value: 
+	Key: five; value: 
+	Key: six; value: 
 
-Start from element 3 and show a slice of 2 elements:
-baz|one\ two|
+Start from hash insertion element 5 and show a slice of 2 elements:
+four|five\ by\ five|
+
+Start from hash insertion element 0 (huh?) and show a slice of 3 elements:
+foo|bar|baz|
+
+Start from hash insertion element 1 and show a slice of 3 elements:
+foo|bar|baz|
 
 Delete key c using unset (dumped before and after):
-declare -A myhash=([a]="foo" [b]="bar" [c]="baz" [d]="one two" [e]="three four" )
-declare -A myhash=([a]="foo" [b]="bar" [d]="one two" [e]="three four" )
+declare -A myhash=([a]="foo" [b]="bar" [c]="baz" [d]="three" [e]="four" [f]="five by five" [g]="six" )
+declare -A myhash=([a]="foo" [b]="bar" [d]="three" [e]="four" [f]="five by five" [g]="six" )

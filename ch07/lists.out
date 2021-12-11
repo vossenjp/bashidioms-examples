@@ -1,43 +1,48 @@
 
-The element count is: 6 or 6
+The element count is: 7 or 7
 
-The length of element [5] is: 10
+The length of element [4] is: 4
 
 Dump or list:
-declare -a mylist=([0]="foo" [1]="bar" [2]="baz" [3]="one" [4]="two" [5]="three four")
-${mylist[@]}   = foo|bar|baz|one|two|three|four|
-${mylist[*]}   = foo|bar|baz|one|two|three|four|
-"${mylist[@]}" = foo|bar|baz|one|two|three\ four|
-"${mylist[*]}" = foo\ bar\ baz\ one\ two\ three\ four|	# But this is broken!
+declare -a mylist=([0]="foo" [1]="bar" [2]="baz" [3]="three" [4]="four" [5]="five by five" [6]="six")
+${mylist[@]}   = foo|bar|baz|three|four|five|by|five|six|
+${mylist[*]}   = foo|bar|baz|three|four|five|by|five|six|
+"${mylist[@]}" = foo|bar|baz|three|four|five\ by\ five|six|
+"${mylist[*]}" = foo\ bar\ baz\ three\ four\ five\ by\ five\ six|	# But this is broken!
 
+Join ${mylist[@]} = foo,bar,baz,three,four,five by five,six
+String_Join ${mylist[@]} = foo<>bar<>baz<>three<>four<>five by five<>six
 foreach "${!mylist[@]}":
 	Element: 0; value: foo
 	Element: 1; value: bar
 	Element: 2; value: baz
-	Element: 3; value: one
-	Element: 4; value: two
-	Element: 5; value: three four
+	Element: 3; value: three
+	Element: 4; value: four
+	Element: 5; value: five by five
+	Element: 6; value: six
 
 But don't do this: ${mylist[*]}
 	Element: foo; value: foo
 	Element: bar; value: foo
 	Element: baz; value: foo
-	Element: one; value: foo
-	Element: two; value: foo
 	Element: three; value: foo
 	Element: four; value: foo
+	Element: five; value: foo
+	Element: by; value: foo
+	Element: five; value: foo
+	Element: six; value: foo
 
-Start from element 3 and show a slice of 2 elements:
-one|two|
+Start from element 5 and show a slice of 2 elements:
+five\ by\ five|six|
 
 Shift FIRST element [0] (dumped before and after):
-declare -a mylist=([0]="foo" [1]="bar" [2]="baz" [3]="one" [4]="two" [5]="three four")
-declare -a mylist=([0]="bar" [1]="baz" [2]="one" [3]="two" [4]="three four")
+declare -a mylist=([0]="foo" [1]="bar" [2]="baz" [3]="three" [4]="four" [5]="five by five" [6]="six")
+declare -a mylist=([0]="bar" [1]="baz" [2]="three" [3]="four" [4]="five by five" [5]="six")
 
 Pop LAST element (dumped before and after):
-declare -a mylist=([0]="bar" [1]="baz" [2]="one" [3]="two" [4]="three four")
-declare -a mylist=([0]="bar" [1]="baz" [2]="one" [3]="two")
+declare -a mylist=([0]="bar" [1]="baz" [2]="three" [3]="four" [4]="five by five" [5]="six")
+declare -a mylist=([0]="bar" [1]="baz" [2]="three" [3]="four" [4]="five by five")
 
 Delete element 2 using unset (dumped before and after):
-declare -a mylist=([0]="bar" [1]="baz" [2]="one" [3]="two")
-declare -a mylist=([0]="bar" [1]="baz" [3]="two")
+declare -a mylist=([0]="bar" [1]="baz" [2]="three" [3]="four" [4]="five by five")
+declare -a mylist=([0]="bar" [1]="baz" [3]="four" [4]="five by five")
