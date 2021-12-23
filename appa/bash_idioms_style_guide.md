@@ -7,6 +7,8 @@ This is a copy of the points in chapter 11 of _bash Idioms_, but without the com
 
 This Bash Idioms Style Guide is specifically for Bash, so it is not portable to POSIX, Bourne, Dash or other shells.  If you need to write for those shells you will need to test and tweak this guide to account for the supported syntax and feature of those shells.
 
+Be especially careful in Docker or other containers where `/bin/sh` is not bash and `/bin/bash` may not even exist!  This applies to Internet-of-Things and other constrained environments such as industrial controllers.  See "bash in Containers" in the preface and "Shebang" in chapter 9 of _bash Idioms_.
+
 
 ### Readability
 
