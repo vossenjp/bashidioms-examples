@@ -15,6 +15,8 @@ Welcome to the examples from O'Reilly's _bash Idioms_, by Carl Albing and JP Vos
 
 Each sub-directory contains the important, long, or difficult-to-type examples from the relevant chapter.
 
+* `bcb2-appd.pdf` is appendix D of _bash Cookbook_ Second Edition (ISBN 978-1-491-97533-6), extracted here as a stand-alone document for ease of reference and to encourage using revisions control for your bash coding.
+    * The current file *IS BROKEN* and just a placeholder until we get a good build from production!
 * `appa\` is the "Bash Idioms Style Guide" from chapter 11, but without the commentary and discussion:
     * HTML version: `bash_idioms_style_guide.html`.
     * Markdown version: `bash_idioms_style_guide.md`.
