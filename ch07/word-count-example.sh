@@ -3,7 +3,7 @@
 # Original Author & date: _bash Idioms_ 2022
 # bash Idioms filename: examples/ch07/word-count-example.sh
 #_________________________________________________________________________
-# Does not work on zsh 5.4.2!
+# Does not work on Zsh 5.4.2!
 # See also: `man uniq`
 
 WORD_FILE='/tmp/words.txt'
@@ -17,7 +17,7 @@ echo "Creating & reading random word list in: $WORD_FILE"
 # Create a list of words to use for the hash example
 mylist=(foo bar baz one two three four)
 
-# Loop, and randomly pick elements out of the lips
+# Loop, and randomly pick elements out of the list
 range="${#mylist[@]}"                                                  # <3>
 for ((i=0; i<35; i++)); do
     random_element="$(( $RANDOM % $range ))"                           # <4>

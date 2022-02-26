@@ -14,7 +14,7 @@ while getopts ':-:ao:v' VAL ; do                                       # <1>
         o ) OFILE="$OPTARG" ;;
         v ) VERBOSE='echo'  ;;
 #--------------------------------------------------------
-        - ) # this section added to support long arguments             # <2>
+        - ) # This section added to support long arguments             # <2>
              case $OPTARG in
                 amode     ) AMODE=1 ;;
                 outfile=* ) OFILE="${OPTARG#*=}" ;;                    # <3>

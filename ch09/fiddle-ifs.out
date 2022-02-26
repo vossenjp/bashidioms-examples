@@ -1,0 +1,31 @@
+Normal $IFS and `read` operation:
+$IFS before: $' \t\n'
+IFS during: $' \t\n'	line = line1, w1 = wd1, w2 = wd2, w3 = wd3
+IFS during: $' \t\n'	line = line2, w1 = wd1, w2 = wd2, w3 = wd3
+IFS during: $' \t\n'	line = line3, w1 = wd1, w2 = wd2, w3 = wd3
+IFS after:  $' \t\n'
+
+Temporary $IFS change for `read` inline:
+IFS before: $' \t\n'
+IFS during: $' \t\n'	line = line1\ wd1\ wd2\ wd3, w1 = '', w2 = '', w3 = ''
+IFS during: $' \t\n'	line = line2\ wd1\ wd2\ wd3, w1 = '', w2 = '', w3 = ''
+IFS during: $' \t\n'	line = line3\ wd1\ wd2\ wd3, w1 = '', w2 = '', w3 = ''
+IFS after:  $' \t\n'
+
+Temporary $IFS change for `read` in a function:
+IFS before: $' \t\n'
+IFS during: ''	line = line1\ wd1\ wd2\ wd3, w1 = '', w2 = '', w3 = ''
+IFS during: ''	line = line2\ wd1\ wd2\ wd3, w1 = '', w2 = '', w3 = ''
+IFS during: ''	line = line3\ wd1\ wd2\ wd3, w1 = '', w2 = '', w3 = ''
+IFS after:  $' \t\n'
+
+But you may not need to change $IFS at all...  See `help read` and
+note the parts about:
+    ...leftover words assigned to the last NAME
+    ...[read line until] DELIM is read, rather than newline
+Normal $IFS and `read` operation using only 1 variable:
+IFS before: $' \t\n'
+IFS during: $' \t\n'	line = line1\ wd1\ wd2\ wd3
+IFS during: $' \t\n'	line = line2\ wd1\ wd2\ wd3
+IFS during: $' \t\n'	line = line3\ wd1\ wd2\ wd3
+IFS after:  $' \t\n'

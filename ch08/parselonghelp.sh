@@ -15,7 +15,8 @@ DEBUG=':'    # Default is off (no-op)
 function Display_Help {
     # Tab indents below, starting after the EoN (End-of-Note) line!
     cat <<-EoN
-	This script does nothing but show help, a real script should be more exciting.
+	This script does nothing but show help; a real script should be 
+        more exciting.
 	    usage: $PROGRAM (options)
 
 	Options:
@@ -29,14 +30,14 @@ function Display_Help {
 	You can put more detail here if you need to.
 	EoN
     # Tab indents above!
-    # If we have this next line the script will always exit after calling
+    # If we have this next line, the script will always exit after calling
     # Display_Help.  You may or may not want that...you decide.
     # exit 1  # If you use this, remove the other exits after the call!
 } # end of function Display_Help
 
 while getopts ':-:adho:vV' VAL ; do
     case $VAL in
-        # If you keep options in lexical order they are easier to find and
+        # If you keep options in lexical order, they are easier to find and
         # you reduce the chances of a collision
         a ) AMODE=1 ;;
         d ) DEBUG='echo' ;;
@@ -45,7 +46,7 @@ while getopts ':-:adho:vV' VAL ; do
         v ) VERBOSE='echo'  ;;
         V ) echo "$VERSION" && exit 0 ;;    # We violated our style here too
 #--------------------------------------------------------
-        -) # this section added to support long arguments
+        -) # This section added to support long arguments
              case $OPTARG in
                 amode     ) AMODE=1 ;;
                 debug     ) DEBUG='echo' ;;

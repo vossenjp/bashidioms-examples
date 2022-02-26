@@ -3,7 +3,7 @@
 # Original Author & date: _bash Idioms_ 2022
 # bash Idioms filename: examples/ch09/trivial_trap.sh
 #_________________________________________________________________________
-# Does not work on zsh 5.4.2!
+# Does not work on Zsh 5.4.2!
 
 function Cleanup {
     echo "$FUNCNAME was triggered!  Cleaning up..."
@@ -12,6 +12,7 @@ function Cleanup {
 echo "Starting script $0..."
 
 echo 'Setting the trap...'
+# Will call Cleanup on any of these 6 signals
 trap Cleanup ABRT EXIT HUP INT QUIT TERM
 
 echo 'About to exit...'

@@ -4,11 +4,12 @@ The element count is: 7 or 7
 The length of element [4] is: 4
 
 Dump or list:
-declare -a mylist=([0]="foo" [1]="bar" [2]="baz" [3]="three" [4]="four" [5]="five by five" [6]="six")
+declare -a mylist=([0]="foo" [1]="bar" [2]="baz" [3]="three"
+[4]="four" [5]="five by five" [6]="six")
 ${mylist[@]}   = foo|bar|baz|three|four|five|by|five|six|
 ${mylist[*]}   = foo|bar|baz|three|four|five|by|five|six|
 "${mylist[@]}" = foo|bar|baz|three|four|five\ by\ five|six|
-"${mylist[*]}" = foo\ bar\ baz\ three\ four\ five\ by\ five\ six|	# But this is broken!
+"${mylist[*]}" = foo\ bar\ baz\ three\ four\ five\ by\ five\ six|   # But this is broken!
 
 Join ${mylist[@]} = foo,bar,baz,three,four,five by five,six
 String_Join ${mylist[@]} = foo<>bar<>baz<>three<>four<>five by five<>six
@@ -36,11 +37,14 @@ Start from element 5 and show a slice of 2 elements:
 five\ by\ five|six|
 
 Shift FIRST element [0] (dumped before and after):
-declare -a mylist=([0]="foo" [1]="bar" [2]="baz" [3]="three" [4]="four" [5]="five by five" [6]="six")
-declare -a mylist=([0]="bar" [1]="baz" [2]="three" [3]="four" [4]="five by five" [5]="six")
+declare -a mylist=([0]="foo" [1]="bar" [2]="baz" [3]="three"
+[4]="four" [5]="five by five" [6]="six")
+declare -a mylist=([0]="bar" [1]="baz" [2]="three" [3]="four"
+[4]="five by five" [5]="six")
 
 Pop LAST element (dumped before and after):
-declare -a mylist=([0]="bar" [1]="baz" [2]="three" [3]="four" [4]="five by five" [5]="six")
+declare -a mylist=([0]="bar" [1]="baz" [2]="three" [3]="four"
+[4]="five by five" [5]="six")
 declare -a mylist=([0]="bar" [1]="baz" [2]="three" [3]="four" [4]="five by five")
 
 Delete element 2 using unset (dumped before and after):

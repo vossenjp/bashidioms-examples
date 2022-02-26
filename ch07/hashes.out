@@ -4,11 +4,12 @@ The key count is: 7 or 7
 The length of the value of key [e] is: 4
 
 Dump or list:
-declare -A myhash=([a]="foo" [b]="bar" [c]="baz" [d]="three" [e]="four" [f]="five by five" [g]="six" )
+declare -A myhash=([a]="foo" [b]="bar" [c]="baz" [d]="three"
+[e]="four" [f]="five by five" [g]="six" )
 ${myhash[@]}   = foo|bar|baz|three|four|five|by|five|six|
 ${myhash[*]}   = foo|bar|baz|three|four|five|by|five|six|
 "${myhash[@]}" = foo|bar|baz|three|four|five\ by\ five|six|
-"${myhash[*]}" = foo\ bar\ baz\ three\ four\ five\ by\ five\ six|	# But this is broken!
+"${myhash[*]}" = foo\ bar\ baz\ three\ four\ five\ by\ five\ six|   # But this is broken!
 
 Join ${myhash[@]} = foo,bar,baz,three,four,five by five,six
 String_Join ${myhash[@]} = foo<>bar<>baz<>three<>four<>five by five<>six
@@ -42,5 +43,7 @@ Start from hash insertion element 1 and show a slice of 3 elements:
 foo|bar|baz|
 
 Delete key c using unset (dumped before and after):
-declare -A myhash=([a]="foo" [b]="bar" [c]="baz" [d]="three" [e]="four" [f]="five by five" [g]="six" )
-declare -A myhash=([a]="foo" [b]="bar" [d]="three" [e]="four" [f]="five by five" [g]="six" )
+declare -A myhash=([a]="foo" [b]="bar" [c]="baz" [d]="three"
+[e]="four" [f]="five by five" [g]="six" )
+declare -A myhash=([a]="foo" [b]="bar" [d]="three" [e]="four"
+[f]="five by five" [g]="six" )

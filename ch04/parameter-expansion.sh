@@ -16,7 +16,7 @@ ipa=${subnet%/*}                               # Remove trailing '/*'
 cidr=${subnet#*/}                              # Remove up to '/*'
 fw_object_name=${customer_subnet_name// /_}    # Replace space with '_-
 fw_object_name=${fw_object_name////-}          # Replace '/' with '-'
-fw_object_name=${fw_object_name,,}             # Lower case
+fw_object_name=${fw_object_name,,}             # Lowercase
 
 echo ''
 echo 'When the code runs we get:'
@@ -27,11 +27,11 @@ echo "IPA            $ipa"
 echo "CIDR mask:     $cidr"
 echo "FW Object:     $fw_object_name"
 
-# https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html#Shell-Parameter-Expansion
+# https://oreil.ly/Af8lw
 
-# ${var#pattern}                Remove shortest (non-greedy) leading pattern
+# ${var#pattern}                Remove shortest (nongreedy) leading pattern
 # ${var##pattern}               Remove longest (greedy) leading pattern
-# ${var%pattern}                Remove shortest (non-greedy) trailing pattern
+# ${var%pattern}                Remove shortest (nongreedy) trailing pattern
 # ${var%%pattern}               Remove longest (greedy) trailing pattern
 
 # ${var/pattern/replacement}    Replace first +pattern+ with +replacement+

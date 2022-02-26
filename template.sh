@@ -20,6 +20,11 @@ PROGRAM=${0##*/}  # bash version of `basename`
 # GLOBAL and constant variables are in UPPER case
 LOG_DIR='/path/to/log/dir'
 
+### Consider adding argument handling to YOUR template; see:
+# examples/ch08/parseit.sh
+# examples/ch08/parselong.sh
+# examples/ch08/parselonghelp.sh
+
 # Functions are in Mixed Case
 ###########################################################################
 # Define functions
@@ -32,7 +37,7 @@ LOG_DIR='/path/to/log/dir'
 function foo {
     local var1="$1"
     ...
-} # end of function foo
+} # End of function foo
 
 
 #--------------------------------------------------------------------------
@@ -43,10 +48,10 @@ function foo {
 function bar {
     local var1="$1"
     ...
-} # end of function bar
+} # End of function bar
 
 
 ###########################################################################
 # Main
 
-# code...
+# Code...

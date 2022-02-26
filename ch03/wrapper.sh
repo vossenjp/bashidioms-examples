@@ -6,7 +6,7 @@
 
 # Trivial Sanity Checks                                                # <1>
 [ -n "$BOOK_ASC" ] || {
-    echo "FATAL: must export \$BOOK_ASC to the location of the book's Asciidoc files!"
+    echo "FATAL: export \$BOOK_ASC to the location of the Asciidoc files!"
     exit 1
 }
 \cd "$BOOK_ASC" || {
@@ -38,21 +38,21 @@ case "$action" in                                                      # <6>
     # Content/Markup                                                   # <7>
 
     ### Headers                                                        # <8>
-    h1 )                 # Inside chapter heading 1 (really Asciidoc h3) <9>
+    h1 )                 # Inside chapter heading 1 (really AsciiDoc h3) <9>
         Output "[[$($SELF id $text)]]\n=== $text"                      # <10>
     ;;
-    h2 )                 # Inside chapter heading 2 (really Asciidoc h4)
+    h2 )                 # Inside chapter heading 2 (really AsciiDoc h4)
         Output "[[$($SELF id $text)]]\n==== $text"
     ;;
-    h3 )                 # Inside chapter heading 3 (really Asciidoc h5)
+    h3 )                 # Inside chapter heading 3 (really AsciiDoc h5)
         Output "[[$($SELF id $text)]]\n===== $text"
     ;;
 
     ### Lists
-    bul|bullet )         # Bullet list (** = level 2, + = multi-line element)
+    bul|bullet )         # Bullet list (** = level 2, + = multiline element)
         Output "* $text"
     ;;
-    nul|number|order* )  # Numbered/ordered list (.. = level 2, + = multi-line element)
+    nul|number|order* )  # Numbered/ordered list (.. = level 2, + = multiline)
         Output ". $text"
     ;;
     term )               # Terms
@@ -93,11 +93,11 @@ case "$action" in                                                      # <6>
 
 
     #######################################################################
-    # Tools                                                            # <7>
+    # Tools                                                            # <11>
 
     id )                 ## Convert a hack/recipe name to an ID
         #us_text=${text// /_}  # Space to '_'
-        #lc_text=${us_text,,}  # Lower case; Bash 4+ only!
+        #lc_text=${us_text,,}  # Lowercase; bash 4+ only!
         # Initial `tr -s '_' ' '` to preserve _ in case we process an ID
         # twice (like from "xref")
         Output $(echo $text | tr -s '_' ' ' | tr '[:upper:]' '[:lower:]' \
@@ -119,7 +119,7 @@ case "$action" in                                                      # <6>
         }
     ;;
 
-    rerun )              ## Re-run example code to re-create (existing!) output files
+    rerun )              ## Run examples to re-create (existing!) output files
         # Only re-run for code that ALREADY HAS a *.out file...not ALL *.sh code
         for output in examples/*/*.out; do
             code=${output/out/sh}
@@ -133,14 +133,14 @@ case "$action" in                                                      # <6>
     ;;
 
 
-    * )                                                                # <11>
+    * )                                                                # <12>
         \cd -  # UGLY cheat to revert the 'cd' above...
-        ( echo "Usage:"                                                # <12>
-        egrep '\)[[:space:]]+# '   $0                                  # <13>
+        ( echo "Usage:"                                                # <13>
+        egrep '\)[[:space:]]+# '   $0                                  # <14>
         echo ''
-        egrep '\)[[:space:]]+## '  $0                                  # <14>
+        egrep '\)[[:space:]]+## '  $0                                  # <15>
         echo ''
-        egrep '\)[[:space:]]+### ' $0 ) | grep "${1:-.}" | more        # <15>
+        egrep '\)[[:space:]]+### ' $0 ) | grep "${1:-.}" | more        # <16>
     ;;
 
 esac
