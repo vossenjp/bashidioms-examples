@@ -9,10 +9,10 @@ declare -a mylist=([0]="foo" [1]="bar" [2]="baz" [3]="three"
 ${mylist[@]}   = foo|bar|baz|three|four|five|by|five|six|
 ${mylist[*]}   = foo|bar|baz|three|four|five|by|five|six|
 "${mylist[@]}" = foo|bar|baz|three|four|five\ by\ five|six|
-"${mylist[*]}" = foo\ bar\ baz\ three\ four\ five\ by\ five\ six|   # But this is broken!
+"${mylist[*]}" = foo\ bar\ baz\ three\ four\ five\ by\ five\ six|   # Broken!
 
-Join ${mylist[@]} = foo,bar,baz,three,four,five by five,six
-String_Join ${mylist[@]} = foo<>bar<>baz<>three<>four<>five by five<>six
+Join ',' ${mylist[@]} = foo,bar,baz,three,four,five by five,six
+String_Join '<>' ${mylist[@]} = foo<>bar<>baz<>three<>four<>five by five<>six
 foreach "${!mylist[@]}":
 	Element: 0; value: foo
 	Element: 1; value: bar

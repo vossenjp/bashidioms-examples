@@ -15,7 +15,7 @@ DEBUG=':'    # Default is off (no-op)
 function Display_Help {
     # Tab indents below, starting after the EoN (End-of-Note) line!
     cat <<-EoN
-	This script does nothing but show help; a real script should be 
+	This script does nothing but show help; a real script should be
         more exciting.
 	    usage: $PROGRAM (options)
 
@@ -41,7 +41,7 @@ while getopts ':-:adho:vV' VAL ; do
         # you reduce the chances of a collision
         a ) AMODE=1 ;;
         d ) DEBUG='echo' ;;
-        h ) Display_Help && exit 1 ;;       # We violated our style here
+        h ) Display_Help ; exit 1 ;;        # We violated our style here
         o ) OFILE="$OPTARG" ;;
         v ) VERBOSE='echo'  ;;
         V ) echo "$VERSION" && exit 0 ;;    # We violated our style here too

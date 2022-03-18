@@ -10,11 +10,11 @@ function Usage_Exit {
     exit
 }
 
-# Show each filename preceded by the length of its name, sorted by
-# filename length
+# Show each filename preceded by the length of its name, sorted by filename
+# length.  Note '-' is valid but uncommon in function names, but it is not
+# valid in variable names.  We don't usually use it, but you can.
 function Ls-Length {
-    ls -1 "$@" \
-    | while read fn; do
+    ls -1 "$@" | while read fn; do
         printf '%3d %s\n' ${#fn} ${fn}
     done | sort -n
 }
@@ -28,11 +28,11 @@ case $sub in
         ls -N --color=tty -T 0 "$@"
     ;;
 
-    last | latest)    # latest files                                   # <2>
-        ls -lrt | tail "-${1:-5}"
+    last | latest)                        # Latest files               # <2>
+        ls -lrt | tail "-n${1:-5}"                                     # <3>
     ;;
 
-    len*)                                 # Files with name lengths    # <3>
+    len*)                                 # Files with name lengths    # <4>
         Ls-Length "$@"
     ;;
 
@@ -40,7 +40,7 @@ case $sub in
         Ls-Length "$@" | tail -1
     ;;
 
-    *) # Default
+    *)                                    # Default
         echo "unknown command: $sub"
         Usage_Exit
     ;;

@@ -73,7 +73,7 @@ Ignore the callout in this title; it only makes sense in the output later.
 
 This block is back to generic markup.  We do *not* recommend mixing and
 matching like we've done here!  Pick a markup and some tools and stick to
-them.  If in doubt, Github has made Markdown _very_ popular.
+them.  If in doubt, GitHub has made Markdown _very_ popular.
 
 Docs can just go *after* the end of the code.  There's an argument for putting
 all the docs together in one place at the top or bottom of the script.  This

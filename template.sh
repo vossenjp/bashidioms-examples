@@ -34,7 +34,7 @@ LOG_DIR='/path/to/log/dir'
 # Globals: none
 # Input:   nothing
 # Output:  nothing
-function foo {
+function Foo {
     local var1="$1"
     ...
 } # End of function foo
@@ -45,7 +45,7 @@ function foo {
 # Globals: none
 # Input:   nothing
 # Output:  nothing
-function bar {
+function Bar {
     local var1="$1"
     ...
 } # End of function bar

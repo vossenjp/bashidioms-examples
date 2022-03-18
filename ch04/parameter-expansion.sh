@@ -3,7 +3,7 @@
 # Original Author & date: _bash Idioms_ 2022
 # bash Idioms filename: examples/ch04/parameter-expansion.sh
 #_________________________________________________________________________
-# Does not work on zsh 5.4.2!
+# Does not work on Zsh 5.4.2!
 
 customer_subnet_name='Acme Inc subnet 10.11.12.13/24'
 
@@ -27,7 +27,7 @@ echo "IPA            $ipa"
 echo "CIDR mask:     $cidr"
 echo "FW Object:     $fw_object_name"
 
-# https://oreil.ly/Af8lw
+# bash Shell Parameter Expansion: https://oreil.ly/Af8lw
 
 # ${var#pattern}                Remove shortest (nongreedy) leading pattern
 # ${var##pattern}               Remove longest (greedy) leading pattern

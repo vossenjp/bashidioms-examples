@@ -53,7 +53,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#comments">Comments</a></li>
 <li><a href="#names">Names</a></li>
 <li><a href="#functions">Functions</a></li>
-<li><a href="#quoting">Quoting</a></li>
+<li><a href="#quotingdouble-quotation-marks-style-guidelines-forquotation-marks-style-guidelines-for-quotation-marks-style-guidelines-forsingle-quotation-marks-style-guidelines-for-single-quotation-marks-style-guidelines-for">Quoting(((&quot;double quotation marks (&quot;&quot;)&quot;, &quot;style guidelines for&quot;)))(((&quot;quotation marks (&quot;&quot;)&quot;, &quot;style guidelines for&quot;)))(((&quot;&quot;&quot; (quotation marks)&quot;, &quot;style guidelines for&quot;)))(((&quot;single quotation marks (' ')&quot;, &quot;style guidelines for&quot;)))(((&quot;' ' (single quotation marks)&quot;, &quot;style guidelines for&quot;)))</a></li>
 <li><a href="#layout">Layout</a></li>
 <li><a href="#syntax">Syntax</a></li>
 <li><a href="#other">Other</a></li>
@@ -65,7 +65,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>This is a copy of the points in chapter 11 of <em>bash Idioms</em> but without the commentary and examples. There's also a Markdown file in the examples directory so you can download and tweak it as desired, then render or include it as needed using <code>pandoc</code> or some other tool. Get the code from the https://github.com/vossenjp/bashidioms-examples/tree/master/appa[book's GitHub page].</p>
 <h3 id="the-bash-idioms-style-guide-is-not-portable">The <em>bash Idioms</em> Style Guide Is Not Portable</h3>
 <p>This <em>bash Idioms</em> style guide is specifically for bash, so it is not portable to POSIX, Bourne, Dash, or other shells. If you need to write for those shells, you will need to test and tweak this guide to account for the supported syntax and feature of those shells.</p>
-<p>Be especially careful in Docker or other containers where <code>/bin/sh</code> is not bash and <code>/bin/bash</code> may not even exist! This applies to Internet-of-Things and other constrained environments such as industrial controllers. See &quot;bash in Containers&quot; in the preface and &quot;Shebang&quot; in chapter 9 of <em>bash Idioms</em>.</p>
+<p>Be especially careful in Docker or other containers where <code>/bin/sh</code> is not bash and <code>/bin/bash</code> may not even exist! This applies to Internet of Things and other constrained environments such as industrial controllers. See &quot;bash in Containers&quot; in the preface and &quot;Shebang&quot; in chapter 9 of <em>bash Idioms</em>.</p>
 <h3 id="readability">Readability</h3>
 <p>Readability of your code is important! Or as Python says, <em>readability counts.</em> You only write it once, but you (and others) will probably read it many times. Spend the extra few seconds or minutes thinking about the poor clueless person trying to read the code next year...it's very likely to be you. There's a balance and a tension between abstraction (Don't Repeat Yourself) and readability:</p>
 <ul>
@@ -75,19 +75,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><em>Always use a header.</em></li>
 <li>If at all possible, emit something useful for <code>-h</code>, <code>--help</code>, and incorrect arguments!
 <ul>
-<li>Prefer using a &quot;here&quot; document (with leading tabs) to a bunch of echo lines because there's less friction when you need to update and probably rewrap it later.</li>
+<li>Prefer using a &quot;here&quot; document (with leading tabs) rather than a bunch of echo lines because there's less friction when you need to update and probably rewrap it later.</li>
 </ul></li>
 <li>Use <code>source</code> (instead of <code>.</code>, which is easy to miss seeing and harder to search for) to include config files, which should end in <code>.cfg</code> (or <code>.conf</code> or whatever your standard is).</li>
 <li>If at all possible, use https://oreil.ly/6QyeH[ISO-8601] dates for everything.</li>
-<li>If at all possible, keep lists of things (e.g., ip addresses, hostnames, packages to install, whatever) in alphabetical order; this prevents duplication and makes it easier to add or remove items.
-<ul>
-<li>This applies to <code>case</code> statements, contents of variables or arrays/lists, and wherever it makes sense.</li>
-</ul></li>
+<li>If at all possible, keep lists of things in alphabetical order; this prevents duplication and makes it easier to add or remove items. Examples include IP addresses (use GNU <code>sort -V</code>), hostnames, packages to install, <code>case</code> statements, and contents of variables or arrays/lists.</li>
 <li>If possible, use long arguments to commands for readability, e.g., use <code>diff --quiet</code> instead of <code>diff -q</code>, though watch out for portability to non-GNU/Linux systems.
 <ul>
 <li>If any options are short or obscure, add comments.</li>
-<li>Also, strongly consider documenting why you chose or needed the options you chose, and even options you considered but didn't use for some reason.</li>
-<li>Definitely document any options that might seem like a good idea but that actually can cause problems, especially if they are options you commonly use elsewhere.</li>
+<li>Strongly consider documenting why you chose or needed the options you chose, and even options you considered but didn't use for some reason.</li>
+<li>Definitely document any options that might seem like a good idea but that actually can cause problems, especially if you commonly use them elsewhere.</li>
 </ul></li>
 </ul>
 <h3 id="comments">Comments</h3>
@@ -107,12 +104,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Good names are critical!</li>
 <li>Global variables and constants are in UPPER case.
 <ul>
-<li>Prefer not to make changes to global variables, but sometimes that's just much simpler.</li>
+<li>Prefer not to make changes to global variables, but sometimes that's just much simpler (KISS).</li>
 <li>Use <code>readonly</code> or <code>declare -r</code> for constants.</li>
 </ul></li>
 <li>Other variables are in lowercase.</li>
 <li>Functions are in Mixed_Case.</li>
-<li>Use &quot;_&quot; in place of space or CamelCase (remember, &quot;-&quot; is not allowed in variable names).</li>
+<li>Use &quot;_&quot;, not CamelCase, in place of space (remember, &quot;-&quot; is not allowed in variable names).</li>
 <li>Use bash arrays carefully; they can be hard to read (see chapter 7 of <em>bash Idioms</em>). <code>for var in $regular_var</code> often works as well.</li>
 <li>Replace <code>$1</code>, <code>$2</code>, .. <code>$N</code> with readable names ASAP.
 <ul>
@@ -132,7 +129,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li>Use Camel_Case and &quot;_&quot; to make function names stand out from variable names.</li>
 <li>Use <code>function My_Func_Name {</code> instead of <code>My_Func_Name() {</code> because it's clearer and easier to <code>grep -P '^\s*function '</code>.</li>
-<li>Each function should have comments defining what it does, inputs (including GLOBALS), and outputs</li>
+<li>Each function should have comments defining what it does, inputs (including GLOBALS), and outputs.</li>
 <li>When you have useful, standalone pieces of code, or any time you use the same (or substantially similar) block of code more than once, make them into functions. If they are very common, like logging or emailing, consider creating a &quot;library,&quot; that is, a single common file you can source as needed.
 <ul>
 <li>Prefix &quot;library&quot; functions with &quot;_&quot;, like <code>_Log</code> or some other prefix.</li>
@@ -152,7 +149,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li>Consider using two blank lines and a main separator above the main section, especially when you have a lot of functions and definitions at the top.</li>
 </ul>
-<h3 id="quoting">Quoting</h3>
+<h3 id="quotingdouble-quotation-marks-style-guidelines-forquotation-marks-style-guidelines-for-quotation-marks-style-guidelines-forsingle-quotation-marks-style-guidelines-for-single-quotation-marks-style-guidelines-for">Quoting(((&quot;double quotation marks (&quot;&quot;)&quot;, &quot;style guidelines for&quot;)))(((&quot;quotation marks (&quot;&quot;)&quot;, &quot;style guidelines for&quot;)))(((&quot;&quot;&quot; (quotation marks)&quot;, &quot;style guidelines for&quot;)))(((&quot;single quotation marks (' ')&quot;, &quot;style guidelines for&quot;)))(((&quot;' ' (single quotation marks)&quot;, &quot;style guidelines for&quot;)))</h3>
 <ul>
 <li>Do put quotes around variables and strings because it makes them stand out a little and clarifies your intent.
 <ul>
@@ -171,7 +168,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Unless one side is an integer.</li>
 <li>And unless you are using <code>~=</code>, in which case you can't quote the regular expression!</li>
 </ul></li>
-<li>Consider single-quoting variables inside <code>echo</code> statements, like <code>echo &quot;cd to '$DIR' failed.&quot;</code> because it's clearer when a variable is unexpectedly undefined or empty.
+<li>Consider single-quoting variables inside <code>echo</code> statements, like <code>echo &quot;cd to '$DIR' failed.&quot;</code> because it's visible when a variable is unexpectedly undefined or empty.
 <ul>
 <li>Or <code>echo &quot;cd to [$DIR] failed.&quot;</code> as you like.</li>
 <li>If using <code>set -u</code>, you will get an error if the variable is not defined—but not if it is defined but is just unexpectedly empty.</li>
@@ -180,7 +177,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 <h3 id="layout">Layout</h3>
 <ul>
-<li>Line things up! Multiple spaces almost never matter in bash (except around <code>=</code>), and lining up similar commands make it easier to read and to see both the similarities and differences.</li>
+<li>Line things up! Multiple spaces almost never matter in bash (except around <code>=</code>), and lining up similar commands makes it easier to read and to see both the similarities and differences.</li>
 <li><em>Do not allow trailing white space!</em> This will later cause noise in the VCS (version control system) when removed.</li>
 <li>Indent using four spaces, but use TAB with here-documents as needed.</li>
 <li>Break long lines at around 78 columns, indent line continuations two spaces, and break just before <code>|</code> or <code>&gt;</code> so those parts jump out as you scan down the code.</li>
@@ -205,7 +202,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Use <code>[[</code> instead of <code>[</code> (unless you need <code>[</code> for portability, e.g., <code>dash</code>).</li>
 <li>Use <code>(( ))</code> and <code>$(( ))</code> as needed for integer arithmetic; avoid <code>let</code> and <code>expr</code>.</li>
 <li>Use <code>[[ expression ]] &amp;&amp; block</code> or <code>[[ expression ]] || block</code> when it is simple and readable to do so. Do not use <code>[[ expression ]] &amp;&amp; block || block</code> because that doesn't do what you think it does; use <code>if .. then .. (elif ..) else .. fi</code> for that.</li>
-<li>Consider using &quot;Unofficial bash Strict Mode&quot; (&quot;Unofficial bash Strict Mode&quot; in chapter 9 of <em>bash Idioms</em>).
+<li>Consider using &quot;Unofficial bash Strict Mode&quot; (see &quot;Unofficial bash Strict Mode&quot; in chapter 9 of <em>bash Idioms</em>).
 <ul>
 <li><code>set -euo pipefail</code> will prevent or unmask many simple errors.</li>
 <li>Watch out for this one, and use it carefully (if you use it at all): <code>IFS=$'\n\t'</code>.</li>
@@ -214,7 +211,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3 id="other">Other</h3>
 <ul>
 <li>For &quot;system&quot; scripts, log to syslog and let the OS worry about final destination(s), log rotation, etc.</li>
-<li>Error messages should go to STDOUT, like <code>echo 'A Bad Thing happened' &gt;&amp;2</code>.</li>
+<li>Error messages should go to STDERR, like <code>echo 'A Bad Thing happened' 1&gt;&amp;2</code>.</li>
 <li>Sanity-check that external tools are available using <code>[ -x '/path/to/tool' ] || { ...error code block... }</code>.</li>
 <li>Provide useful messages when things fail.</li>
 <li>Set <code>exit</code> codes, especially when you fail.</li>
@@ -256,7 +253,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co"># Globals: none</span>
 <span class="co"># Input:   nothing</span>
 <span class="co"># Output:  nothing</span>
-<span class="kw">function</span><span class="fu"> foo</span> <span class="kw">{</span>
+<span class="kw">function</span><span class="fu"> Foo</span> <span class="kw">{</span>
     <span class="bu">local</span> <span class="va">var1=</span><span class="st">&quot;</span><span class="va">$1</span><span class="st">&quot;</span>
     <span class="ex">...</span>
 <span class="kw">}</span> <span class="co"># End of function foo</span>
@@ -267,7 +264,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co"># Globals: none</span>
 <span class="co"># Input:   nothing</span>
 <span class="co"># Output:  nothing</span>
-<span class="kw">function</span><span class="fu"> bar</span> <span class="kw">{</span>
+<span class="kw">function</span><span class="fu"> Bar</span> <span class="kw">{</span>
     <span class="bu">local</span> <span class="va">var1=</span><span class="st">&quot;</span><span class="va">$1</span><span class="st">&quot;</span>
     <span class="ex">...</span>
 <span class="kw">}</span> <span class="co"># End of function bar</span>

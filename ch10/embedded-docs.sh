@@ -3,9 +3,9 @@
 # Original Author & date: _bash Idioms_ 2022
 # bash Idioms filename: examples/ch10/embedded-docs.sh
 #_________________________________________________________________________
-# Does not work on zsh 5.4.2!
+# Does not work on Zsh 5.4.2!
 
-[ "$1" == '--emit-docs' ] && {
+[[ "$1" == '--emit-docs' ]] && {
     # Use the Perl "range" operator to print only the lines BETWEEN the bash
     # here-document "DOCS" markers, excluding when we talk about this code
     # below in the docs themselves.  See the output for more.
@@ -75,7 +75,7 @@ echo 'Still more code, code, code...'
 	We know this is a bash book, but this Perl one-liner using regular
 	expressions and the range operator is really handy:
 	    perl -ne "s/^\t+//; print if m/DOCS'?\$/ .. m/^\s*'?DOCS'?\$/ \
-      and not m/DOCS'?$/;" $0
+	      and not m/DOCS'?$/;" $0
 
 	That will start printing lines when it matches the regular expression
 	m/DOCS'?$/, and stop printing when it matches m/^\s*'?DOCS'?\$/, except that
@@ -96,7 +96,7 @@ Ignore the callout in this title; it only makes sense in the output later.
 
 This block is back to generic markup.  We do *not* recommend mixing and
 matching like we've done here!  Pick a markup and some tools and stick to
-them.  If in doubt, Github has made Markdown _very_ popular.
+them.  If in doubt, GitHub has made Markdown _very_ popular.
 
 Docs can just go *after* the end of the code.  There's an argument for putting
 all the docs together in one place at the top or bottom of the script.  This

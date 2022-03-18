@@ -100,6 +100,7 @@ case "$action" in                                                      # <6>
         #lc_text=${us_text,,}  # Lowercase; bash 4+ only!
         # Initial `tr -s '_' ' '` to preserve _ in case we process an ID
         # twice (like from "xref")
+        # Also note you can break long lines with a trailing \         # <12>
         Output $(echo $text | tr -s '_' ' ' | tr '[:upper:]' '[:lower:]' \
           | tr -d '[:punct:]' | tr -s ' ' '_')
     ;;
@@ -133,14 +134,14 @@ case "$action" in                                                      # <6>
     ;;
 
 
-    * )                                                                # <12>
+    * )                                                                # <13>
         \cd -  # UGLY cheat to revert the 'cd' above...
-        ( echo "Usage:"                                                # <13>
-        egrep '\)[[:space:]]+# '   $0                                  # <14>
+        ( echo "Usage:"                                                # <14>
+        egrep '\)[[:space:]]+# '   $0                                  # <15>
         echo ''
-        egrep '\)[[:space:]]+## '  $0                                  # <15>
+        egrep '\)[[:space:]]+## '  $0                                  # <16>
         echo ''
-        egrep '\)[[:space:]]+### ' $0 ) | grep "${1:-.}" | more        # <16>
+        egrep '\)[[:space:]]+### ' $0 ) | grep "${1:-.}" | more        # <17>
     ;;
 
 esac

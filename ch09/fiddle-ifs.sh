@@ -14,7 +14,7 @@ EoF
 
 
 #--------------------------------------------------------------------------
-echo 'Normal $IFS and `read` operation:'
+echo 'Normal $IFS and `read` operation; split into words:'
 printf '$IFS before: %q\n' "$IFS"
 while read line w1 w2 w3; do
     printf 'IFS during: %q\tline = %q, w1 = %q, w2 = %q, w3 = %q\n' \
@@ -26,9 +26,12 @@ printf 'IFS after:  %q\n' "$IFS"
 #--------------------------------------------------------------------------
 echo ''
 echo 'Temporary $IFS change for `read` inline:'
+echo 'Words are NOT split, yet $IFS appears unchanged, because only the read'
+echo 'line has the changed $IFS.  We also shortened "line" to "ln" to make'
+echo 'it fit a book page.'
 printf 'IFS before: %q\n' "$IFS"
 while IFS='' read line w1 w2 w3; do
-    printf 'IFS during: %q\tline = %q, w1 = %q, w2 = %q, w3 = %q\n' \
+    printf 'IFS during: %q\tln = %q, w1 = %q, w2 = %q, w3 = %q\n' \
       "$IFS" "$line" "$w1" "$w2" "$w3"
 done < $IFS_TEST_FILE
 printf 'IFS after:  %q\n' "$IFS"
@@ -46,7 +49,7 @@ function Read_A_File {
 }
 
 echo ''
-echo 'Temporary $IFS change for `read` in a function:'
+echo 'Temporary $IFS change for `read` in a function; NOT split, $IFS changed:'
 printf 'IFS before: %q\n' "$IFS"
 Read_A_File
 printf 'IFS after:  %q\n' "$IFS"

@@ -3,7 +3,7 @@
 # Original Author & date: _bash Idioms_ 2022
 # bash Idioms filename: examples/ch09/fancy_mapfile.sh
 #_________________________________________________________________________
-# Does not work on zsh 5.4.2!
+# Does not work on Zsh 5.4.2!
 
 HOSTS_FILE='/tmp/nodes.txt'
 
@@ -20,12 +20,12 @@ SLEEP_SECS_PER_BATCH=1    # Set to zero if `BATCH_SIZE=0`!
 # Display runtime feedback to STDERR (so STDOUT can go into `tee` or a file)
 node_count="$(cat $HOSTS_FILE | wc -l)"                               # <2>
 batch_count="$(( node_count / BATCH_SIZE ))"                          # <3>
-echo '' >&2
-echo "Nodes to process:        $node_count" >&2
-echo "Batch size and count:    $BATCH_SIZE / $batch_count" >&2        # <4>
-echo "Sleep seconds per node:  $SLEEP_SECS_PER_NODE" >&2
-echo "Sleep seconds per batch: $SLEEP_SECS_PER_BATCH" >&2
-echo '' >&2
+echo '' 1>&2
+echo "Nodes to process:        $node_count" 1>&2
+echo "Batch size and count:    $BATCH_SIZE / $batch_count" 1>&2       # <4>
+echo "Sleep seconds per node:  $SLEEP_SECS_PER_NODE" 1>&2
+echo "Sleep seconds per batch: $SLEEP_SECS_PER_BATCH" 1>&2
+echo '' 1>&2
 
 node_counter=0
 batch_counter=0
@@ -43,7 +43,7 @@ while mapfile -t -n $BATCH_SIZE nodes && ((${#nodes[@]})); do
         # have to wait for that
         echo "Completed $node_counter of $node_count nodes;" \
              "batch $batch_counter of $batch_count;" \
-             "sleeping for $SLEEP_SECS_PER_BATCH seconds..." >&2
+             "sleeping for $SLEEP_SECS_PER_BATCH seconds..." 1>&2
         sleep $SLEEP_SECS_PER_BATCH
     }
 done < $HOSTS_FILE

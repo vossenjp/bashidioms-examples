@@ -7,7 +7,7 @@ This is a copy of the points in chapter 11 of _bash Idioms_ but without the comm
 
 This _bash Idioms_ style guide is specifically for bash, so it is not portable to POSIX, Bourne, Dash, or other shells.  If you need to write for those shells, you will need to test and tweak this guide to account for the supported syntax and feature of those shells.
 
-Be especially careful in Docker or other containers where `/bin/sh` is not bash and `/bin/bash` may not even exist!  This applies to Internet-of-Things and other constrained environments such as industrial controllers.  See "bash in Containers" in the preface and "Shebang" in chapter 9 of _bash Idioms_.
+Be especially careful in Docker or other containers where `/bin/sh` is not bash and `/bin/bash` may not even exist!  This applies to Internet of Things and other constrained environments such as industrial controllers.  See "bash in Containers" in the preface and "Shebang" in chapter 9 of _bash Idioms_.
 
 
 ### Readability
@@ -19,15 +19,14 @@ Readability of your code is important!  Or as Python says, _readability counts._
 * Good names are critical!
 * _Always use a header._
 * If at all possible, emit something useful for `-h`, `--help`, and incorrect arguments!
-    * Prefer using a "here" document (with leading tabs) to a bunch of echo lines because there's less friction when you need to update and probably rewrap it later.
+    * Prefer using a "here" document (with leading tabs) rather than a bunch of echo lines because there's less friction when you need to update and probably rewrap it later.
 * Use `source` (instead of `.`, which is easy to miss seeing and harder to search for) to include config files, which should end in `.cfg` (or `.conf` or whatever your standard is).
 * If at all possible, use https://oreil.ly/6QyeH[ISO-8601] dates for everything.
-* If at all possible, keep lists of things (e.g., ip addresses, hostnames, packages to install, whatever) in alphabetical order; this prevents duplication and makes it easier to add or remove items.
-    * This applies to `case` statements, contents of variables or arrays/lists, and wherever it makes sense.
+* If at all possible, keep lists of things in alphabetical order; this prevents duplication and makes it easier to add or remove items. Examples include IP addresses (use GNU `sort -V`), hostnames, packages to install, `case` statements, and contents of variables or arrays/lists.
 * If possible, use long arguments to commands for readability, e.g., use `diff --quiet` instead of `diff -q`, though watch out for portability to non-GNU/Linux systems.
     * If any options are short or obscure, add comments.
-    * Also, strongly consider documenting why you chose or needed the options you chose, and even options you considered but didn't use for some reason.
-    * Definitely document any options that might seem like a good idea but that actually can cause problems, especially if they are options you commonly use elsewhere.
+    * Strongly consider documenting why you chose or needed the options you chose, and even options you considered but didn't use for some reason.
+    * Definitely document any options that might seem like a good idea but that actually can cause problems, especially if you commonly use them elsewhere.
 
 
 ### Comments
@@ -45,11 +44,11 @@ Readability of your code is important!  Or as Python says, _readability counts._
 
 * Good names are critical!
 * Global variables and constants are in UPPER case.
-    * Prefer not to make changes to global variables, but sometimes that's just much simpler.
+    * Prefer not to make changes to global variables, but sometimes that's just much simpler (KISS).
     * Use `readonly` or `declare -r` for constants.
 * Other variables are in lowercase.
 * Functions are in Mixed_Case.
-* Use "_" in place of space or CamelCase (remember, "-" is not allowed in variable names).
+* Use "_", not CamelCase, in place of space (remember, "-" is not allowed in variable names).
 * Use bash arrays carefully; they can be hard to read (see chapter 7 of _bash Idioms_). `for var in $regular_var` often works as well.
 * Replace `$1`, `$2`, .. `$N` with readable names ASAP.
     * That makes everything much more debuggable and readable, but it also makes it easy to have defaults and add or rearrange arguments.
@@ -66,7 +65,7 @@ Readability of your code is important!  Or as Python says, _readability counts._
     * Do _not_ intersperse code between functions!
 * Use Camel_Case and "_" to make function names stand out from variable names.
 * Use `function My_Func_Name {` instead of `My_Func_Name() {` because it's clearer and easier to `grep -P '^\s*function '`.
-* Each function should have comments defining what it does, inputs (including GLOBALS), and outputs
+* Each function should have comments defining what it does, inputs (including GLOBALS), and outputs.
 * When you have useful, standalone pieces of code, or any time you use the same (or substantially similar) block of code more than once, make them into functions.  If they are very common, like logging or emailing, consider creating a "library," that is, a single common file you can source as needed.
     * Prefix "library" functions with "_", like `_Log` or some other prefix.
 * Consider using "filler" words for readability in arguments if it makes sense, then define them as `local junk1="$2" # Unused filler`, e.g.:
@@ -79,7 +78,7 @@ Readability of your code is important!  Or as Python says, _readability counts._
 * Consider using two blank lines and a main separator above the main section, especially when you have a lot of functions and definitions at the top.
 
 
-### Quoting
+### Quoting((("double quotation marks (&quot;&quot;)", "style guidelines for")))((("quotation marks (&quot;&quot;)", "style guidelines for")))((("&quot;&quot; (quotation marks)", "style guidelines for")))((("single quotation marks (&#x27; &#x27;)", "style guidelines for")))((("&#x27; &#x27; (single quotation marks)", "style guidelines for")))
 
 * Do put quotes around variables and strings because it makes them stand out a little and clarifies your intent.
     * Unless it gets too cluttered.
@@ -92,7 +91,7 @@ Readability of your code is important!  Or as Python says, _readability counts._
 * _Always_ quote both sides of any test statement, like `[[ "$foo" == 'bar' ]]`.
     * Unless one side is an integer.
     * And unless you are using `~=`, in which case you can't quote the regular expression!
-* Consider single-quoting variables inside `echo` statements, like `` echo "cd to '$DIR' failed." `` because it's clearer when a variable is unexpectedly undefined or empty.
+* Consider single-quoting variables inside `echo` statements, like `` echo "cd to '$DIR' failed." `` because it's visible when a variable is unexpectedly undefined or empty.
     * Or `echo "cd to [$DIR] failed."` as you like.
     * If using `set -u`, you will get an error if the variable is not defined—but not if it is defined but is just unexpectedly empty.
 * Prefer single quotes around `printf` formats (see "POSIX output" in chapter 6 of _bash Idioms_ and the rest of chapter 6 in general).
@@ -100,7 +99,7 @@ Readability of your code is important!  Or as Python says, _readability counts._
 
 ### Layout
 
-* Line things up! Multiple spaces almost never matter in bash (except around `=`), and lining up similar commands make it easier to read and to see both the similarities and differences.
+* Line things up! Multiple spaces almost never matter in bash (except around `=`), and lining up similar commands makes it easier to read and to see both the similarities and differences.
 * _Do not allow trailing white space!_ This will later cause noise in the VCS (version control system) when removed.
 * Indent using four spaces, but use TAB with here-documents as needed.
 * Break long lines at around 78 columns, indent line continuations two spaces, and break just before `|` or `>` so those parts jump out as you scan down the code.
@@ -122,7 +121,7 @@ Readability of your code is important!  Or as Python says, _readability counts._
 * Use `[[` instead of `[` (unless you need `[` for portability, e.g., `dash`).
 * Use `(( ))` and `$(( ))` as needed for integer arithmetic; avoid `let` and `expr`.
 * Use `[[ expression ]] && block` or `[[ expression ]] || block` when it is simple and readable to do so. Do not use `[[ expression ]] && block || block` because that doesn't do what you think it does; use `if .. then .. (elif ..) else .. fi` for that.
-* Consider using "Unofficial bash Strict Mode" ("Unofficial bash Strict Mode" in chapter 9 of _bash Idioms_).
+* Consider using "Unofficial bash Strict Mode" (see "Unofficial bash Strict Mode" in chapter 9 of _bash Idioms_).
     * `set -euo pipefail` will prevent or unmask many simple errors.
     * Watch out for this one, and use it carefully (if you use it at all): `IFS=$'\n\t'`.
 
@@ -130,7 +129,7 @@ Readability of your code is important!  Or as Python says, _readability counts._
 ### Other
 
 * For "system" scripts, log to syslog and let the OS worry about final destination(s), log rotation, etc.
-* Error messages should go to STDOUT, like `echo 'A Bad Thing happened' >&2`.
+* Error messages should go to STDERR, like `echo 'A Bad Thing happened' 1>&2`.
 * Sanity-check that external tools are available using `[ -x '/path/to/tool' ] || { ...error code block... }`.
 * Provide useful messages when things fail.
 * Set `exit` codes, especially when you fail.
@@ -175,7 +174,7 @@ LOG_DIR='/path/to/log/dir'
 # Globals: none
 # Input:   nothing
 # Output:  nothing
-function foo {
+function Foo {
     local var1="$1"
     ...
 } # End of function foo
@@ -186,7 +185,7 @@ function foo {
 # Globals: none
 # Input:   nothing
 # Output:  nothing
-function bar {
+function Bar {
     local var1="$1"
     ...
 } # End of function bar

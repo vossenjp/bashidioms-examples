@@ -35,14 +35,15 @@ echo -n      "\${myhash[@]}   = " ; printf "%q|"  ${myhash[@]}
 echo -en   "\n\${myhash[*]}   = " ; printf "%q|"  ${myhash[*]}
 echo -en "\n\"\${myhash[@]}\" = " ; printf "%q|" "${myhash[@]}"
 echo -en "\n\"\${myhash[*]}\" = " ; printf "%q|" "${myhash[*]}"
-echo -e "   # But this is broken!"  # Previous line is bad and no newline
+echo -e "   # Broken!"  # Previous line is bad and no newline
 # See `help printf` or chapter 6 "printf for reuse or debugging", we need
 # this to show the correct words:
 # %q	quote the argument in a way that can be reused as shell input
 
 # "Join" the values                                                      <4>
 function Join { local IFS="$1"; shift; echo "$*"; } # One character delimiter!
-echo -en "\nJoin \${myhash[@]} = " ; Join ',' "${myhash[@]}"
+# Note the Join above requires "$*" and not "$@"!
+echo -en "\nJoin ',' \${myhash[@]} = " ; Join ',' "${myhash[@]}"
 function String_Join {
     local delimiter="$1"
     local first_element="$2"
@@ -52,7 +53,7 @@ function String_Join {
     # the elements (from the function args $@), but add a prefix of $delimiter
     # by "replacing" the leading empty pattern (/#) with $delimiter.
 }
-echo -n 'String_Join ${myhash[@]} = ' ; String_Join '<>' "${myhash[@]}"
+echo -n "String_Join '<>' \${myhash[@]} = " ; String_Join '<>' "${myhash[@]}"
 
 # Iterate over the keys and values                                       <5>
 echo -e "\nforeach \"\${!myhash[@]}\":"
@@ -79,11 +80,11 @@ echo '' # No newline in above
 #echo -e "\nShift FIRST key [0]:" = makes no sense in a hash!
 #echo -e "\nPop LAST key:"        = makes no sense in a hash!
 
-# Delete keys or the entire hash                                         <7>
+# Delete keys                                                            <7>
 echo -e "\nDelete key c using unset (dumped before and after):"
 declare -p myhash | $FORMAT
 unset -v 'myhash[c]'
 declare -p myhash | $FORMAT
 
-# Delete the entire hash
+# Delete the entire hash                                                 <8>
 unset -v myhash

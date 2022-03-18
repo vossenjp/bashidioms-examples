@@ -9,10 +9,10 @@ declare -A myhash=([a]="foo" [b]="bar" [c]="baz" [d]="three"
 ${myhash[@]}   = foo|bar|baz|three|four|five|by|five|six|
 ${myhash[*]}   = foo|bar|baz|three|four|five|by|five|six|
 "${myhash[@]}" = foo|bar|baz|three|four|five\ by\ five|six|
-"${myhash[*]}" = foo\ bar\ baz\ three\ four\ five\ by\ five\ six|   # But this is broken!
+"${myhash[*]}" = foo\ bar\ baz\ three\ four\ five\ by\ five\ six|   # Broken!
 
-Join ${myhash[@]} = foo,bar,baz,three,four,five by five,six
-String_Join ${myhash[@]} = foo<>bar<>baz<>three<>four<>five by five<>six
+Join ',' ${myhash[@]} = foo,bar,baz,three,four,five by five,six
+String_Join '<>' ${myhash[@]} = foo<>bar<>baz<>three<>four<>five by five<>six
 foreach "${!myhash[@]}":
 	Key: a; value: foo
 	Key: b; value: bar
