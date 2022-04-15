@@ -1,4 +1,7 @@
-# bashidioms-examples
+# _bash Idioms_ examples
+
+<a href="http://www.bashcookbook.com/">
+<img src="http://www.bashcookbook.com/images/idioms.png" width="226px" align="right" /></a>
 
 Welcome to the examples from O'Reilly's _bash Idioms_, by Carl Albing and JP Vossen.
 
@@ -11,7 +14,20 @@ Welcome to the examples from O'Reilly's _bash Idioms_, by Carl Albing and JP Vos
 * Other bash resources <http://bashcookbook.com/>
     * <http://www.bashcookbook.com/bashinfo>
 
-## Files
+
+## About the Book
+
+Shell scripts are everywhere, especially those written in bash-compatible syntax. But these scripts can be complex and obscure. Complexity is the enemy of security, but it’s also the enemy of readability and understanding. With this practical book, you’ll learn how to decipher old bash code and write new code that’s as clear and readable as possible.
+
+Authors Carl Albing and JP Vossen show you how to use the power and flexibility of the shell to your advantage. You may know enough bash to get by, but this book will take your skills from manageable to magnificent. Whether you use Linux, Unix, Windows, or a Mac, you’ll learn how to read and write scripts like an expert. Your future you will thank you. You’ll explore the clear idioms to use and obscure ones to avoid, so that you can:
+
+* Write useful, flexible, and readable bash code with style
+* Decode bash code such as `${MAKEMELC,,}` and `${PATHNAME##*/}`
+* Save time and ensure consistency when automating tasks
+* Discover how bash idioms can make your code clean and concise
+
+
+## Example Files
 
 Each sub-directory contains the important, long, or difficult-to-type examples from the relevant chapter.
 
