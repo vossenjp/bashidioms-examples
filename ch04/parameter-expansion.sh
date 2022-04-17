@@ -46,7 +46,7 @@ echo "FW Object:     $fw_object_name"
 # ${var:offset:length}          Substring starting at +offset+ for +length+
 
 # ${var:-default}               Var if set, otherwise +default+
-# ${var:-default}               Assign +default+ to +var+ if +var+ not already set
+# ${var:=default}               Assign +default+ to +var+ if +var+ not already set
 # ${var:?error_message}         Barf with +error_message+ if +var+ not set
 # ${var:+replaced}              Expand to +replaced+ if +var+ _is_ set
 
