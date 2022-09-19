@@ -229,9 +229,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Use <code>#!/bin/bash -</code> or <code>#!/usr/bin/env bash</code> when writing bash code, not <code>#!/bin/sh</code>.</li>
 <li>Use <code>$@</code> unless you are <em>really</em> sure you need <code>$*</code>.</li>
 <li>Use <code>==</code> instead of <code>=</code> for equality, to reduce confusion with assignment.</li>
-<li>Use <code>$()</code> instead of <code></code> `` backticks/backquotes.</li>
+<li>Use <code>$(...)</code> instead of <code>`...`</code> backticks/backquotes.</li>
 <li>Use <code>[[</code> instead of <code>[</code> (unless you need <code>[</code> for portability, e.g., <code>dash</code>).</li>
-<li>Use <code>(( ))</code> and <code>$(( ))</code> as needed for integer arithmetic; avoid <code>let</code> and <code>expr</code>.</li>
+<li>Use <code>((...))</code> and <code>$((...))</code> as needed for integer arithmetic; avoid <code>let</code> and <code>expr</code>.</li>
 <li>Use <code>[[ expression ]] &amp;&amp; block</code> or <code>[[ expression ]] || block</code> when it is simple and readable to do so. Do not use <code>[[ expression ]] &amp;&amp; block || block</code> because that doesn't do what you think it does; use <code>if .. then .. (elif ..) else .. fi</code> for that.</li>
 <li>Consider using "Unofficial bash Strict Mode" (see "Unofficial bash Strict Mode" in chapter 9 of <em>bash Idioms</em>).
 <ul>
