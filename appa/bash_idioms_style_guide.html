@@ -166,7 +166,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><em>Always</em> quote both sides of any test statement, like <code>[[ &quot;$foo&quot; == 'bar' ]]</code>.
 <ul>
 <li>Unless one side is an integer.</li>
-<li>And unless you are using <code>~=</code>, in which case you can't quote the regular expression!</li>
+<li>And unless you are using <code>=~</code>, in which case you can't quote the regular expression!</li>
 </ul></li>
 <li>Consider single-quoting variables inside <code>echo</code> statements, like <code>echo &quot;cd to '$DIR' failed.&quot;</code> because it's visible when a variable is unexpectedly undefined or empty.
 <ul>

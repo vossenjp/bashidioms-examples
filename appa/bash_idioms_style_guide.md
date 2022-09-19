@@ -90,7 +90,7 @@ Readability of your code is important!  Or as Python says, _readability counts._
 * Do quote command substitutions, like `var="$(command)"`.
 * _Always_ quote both sides of any test statement, like `[[ "$foo" == 'bar' ]]`.
     * Unless one side is an integer.
-    * And unless you are using `~=`, in which case you can't quote the regular expression!
+    * And unless you are using `=~`, in which case you can't quote the regular expression!
 * Consider single-quoting variables inside `echo` statements, like `` echo "cd to '$DIR' failed." `` because it's visible when a variable is unexpectedly undefined or empty.
     * Or `echo "cd to [$DIR] failed."` as you like.
     * If using `set -u`, you will get an error if the variable is not defined—but not if it is defined but is just unexpectedly empty.
