@@ -78,7 +78,7 @@ Readability of your code is important!  Or as Python says, _readability counts._
 * Consider using two blank lines and a main separator above the main section, especially when you have a lot of functions and definitions at the top.
 
 
-### Quoting((("double quotation marks (&quot;&quot;)", "style guidelines for")))((("quotation marks (&quot;&quot;)", "style guidelines for")))((("&quot;&quot; (quotation marks)", "style guidelines for")))((("single quotation marks (&#x27; &#x27;)", "style guidelines for")))((("&#x27; &#x27; (single quotation marks)", "style guidelines for")))
+### Quoting
 
 * Do put quotes around variables and strings because it makes them stand out a little and clarifies your intent.
     * Unless it gets too cluttered.
