@@ -45,13 +45,13 @@ function Read_A_File {
     while read line w1 w2 w3; do
     printf 'IFS during: %q\tline = %q, w1 = %q, w2 = %q, w3 = %q\n' \
       "$IFS" "$line" "$w1" "$w2" "$w3"
-    done < $IFS_TEST_FILE
+    done < "$file"
 }
 
 echo ''
 echo 'Temporary $IFS change for `read` in a function; NOT split, $IFS changed:'
 printf 'IFS before: %q\n' "$IFS"
-Read_A_File
+Read_A_File $IFS_TEST_FILE
 printf 'IFS after:  %q\n' "$IFS"
 
 
