@@ -18,7 +18,7 @@ SLEEP_SECS_PER_NODE=1     # Can set to 0
 SLEEP_SECS_PER_BATCH=1    # Set to zero if `BATCH_SIZE=0`!
 
 # Display runtime feedback to STDERR (so STDOUT can go into `tee` or a file)
-node_count="$(cat $HOSTS_FILE | wc -l)"                               # <2>
+node_count="$(wc -l < $HOSTS_FILE)"                                   # <2>
 batch_count="$(( node_count / BATCH_SIZE ))"                          # <3>
 echo '' 1>&2
 echo "Nodes to process:        $node_count" 1>&2
